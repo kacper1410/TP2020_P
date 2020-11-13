@@ -7,29 +7,30 @@ namespace Task1Tests_TP
     [TestClass]
     public class BookTest
     {
-        Book book = new Book("tytu³", "autor", CoverType.HardcoverCaseWrap, "gatunek");
+        Book Book = new Book("tytu³", "autor", CoverType.HardcoverCaseWrap, "gatunek");
+
         [TestMethod]
         public void BookGetTitleTest()
         {
-            Assert.AreEqual("tytu³", book.Title);
+            Assert.AreEqual("tytu³", Book.Title);
         }
 
         [TestMethod]
         public void BookGetAuthorTest()
         {
-            Assert.AreEqual("autor", book.Author);
+            Assert.AreEqual("autor", Book.Author);
         }
 
         [TestMethod]
         public void BookGetGenreTest()
         {
-            Assert.AreEqual("gatunek", book.Genre);
+            Assert.AreEqual("gatunek", Book.Genre);
         }
 
         [TestMethod]
         public void BookGetCoverTypeTest()
         {
-            Assert.AreEqual(CoverType.HardcoverCaseWrap, book.CoverType);
+            Assert.AreEqual(CoverType.HardcoverCaseWrap, Book.CoverType);
         }
     }
 }
