@@ -5,10 +5,10 @@ namespace Task1_TP.Objects
     public class Book
     {
         public Guid BookId { get; }
-        public string Title { get; private set; }
-        public string Author { get; private set; }
-        public CoverType CoverType { get; private set; }
-        public string Genre { get; private set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public CoverType CoverType { get; set; }
+        public string Genre { get; set; }
 
         public Book(string title, string author, CoverType coverType, string genre)
         {
