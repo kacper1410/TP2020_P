@@ -56,7 +56,14 @@ namespace Task1_TP
 
         public IEnumerable<Book> GetAllBooks()
         {
-            return (IEnumerable<Book>)DataContext.Books;
+            List<Book> Books = new List<Book>();
+
+            foreach (KeyValuePair<Guid, Book> book in DataContext.Books)
+            {
+                Books.Add(book.Value);
+            }
+
+            return Books;
         }
 
         public IEnumerable<BookState> GetAllBookStates()
@@ -76,7 +83,14 @@ namespace Task1_TP
 
         public Book GetBook(Guid bookId)
         {
-            return DataContext.Books[bookId];
+            try
+            {
+                return DataContext.Books[bookId];
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
         }
 
         public BookState GetBookState(Guid bookStateId)
@@ -120,22 +134,38 @@ namespace Task1_TP
 
         public void UpdateBook(Guid bookId, Book book)
         {
-            throw new NotImplementedException();
+            if (DataContext.Books.ContainsKey(bookId))
+            {
+                DeleteBook(GetBook(bookId));
+                AddBook(book);
+            }
         }
 
         public void UpdateBookState(Guid bookStateId, BookState bookState)
         {
-            throw new NotImplementedException();
+            if (DataContext.BookStates.Contains(GetBookState(bookStateId))) 
+            {
+                DeleteBookState(GetBookState(bookStateId));
+                AddBookState(bookState);
+            }
         }
 
         public void UpdateClient(Guid clientId, Client client)
         {
-            throw new NotImplementedException();
+            if (DataContext.Clients.Contains(GetClient(clientId))) 
+            {
+                DeleteClient(GetClient(clientId));
+                AddClient(client);
+            }
         }
 
         public void UpdatePurchase(Guid purchaseId, Purchase purchase)
         {
-            throw new NotImplementedException();
+            if (DataContext.Purchuases.Contains(GetPurchase(purchaseId))) 
+            {
+                DeletePurchase(GetPurchase(purchaseId));
+                AddPurchase(purchase);
+            }
         }
     }
 }
