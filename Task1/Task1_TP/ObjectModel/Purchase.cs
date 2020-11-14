@@ -6,7 +6,7 @@ namespace Task1_TP.Objects
 {
     public class Purchase
     {
-        public Guid PurchaseID { get; }
+        public Guid PurchaseId { get; }
         public Client Client { get; set; }
         public BookState BookState { get; set; }
         public DateTimeOffset PurchaseTime { get; set; }
@@ -15,7 +15,7 @@ namespace Task1_TP.Objects
 
         public Purchase(Client client, BookState bookState, DateTimeOffset purchaseTime, int boughtQuantity)
         {
-            PurchaseID = Guid.NewGuid();
+            PurchaseId = Guid.NewGuid();
             Client = client;
             BookState = bookState;
             PurchaseTime = purchaseTime;

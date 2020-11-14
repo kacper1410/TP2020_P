@@ -6,14 +6,14 @@ namespace Task1_TP.Objects
 {
     public class Client
     {
-        public Guid UserId { get; }
+        public Guid ClientId { get; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
 
         public Client(string name, string surname, int age)
         {
-            UserId = Guid.NewGuid();
+            ClientId = Guid.NewGuid();
             Name = name;
             Surname = surname;
             Age = age;

@@ -11,15 +11,15 @@ namespace Task1Tests_TP
         BookState BookState;
         Client Client;
         Purchase Purchase;
-        System.DateTimeOffset DataTimeOffset;
+        System.DateTimeOffset DateTimeOffset;
 
         public PurchaseTest()
         {
             this.Book = new Book("tytuł", "autor", CoverType.HardcoverCaseWrap, "gatunek");
             this.BookState = new BookState(Book, 50, 30);
             this.Client = new Client("imie", "nazwisko", 20);
-            this.DataTimeOffset = System.DateTimeOffset.Now;
-            this.Purchase = new Purchase(Client, BookState, DataTimeOffset, 10);
+            this.DateTimeOffset = System.DateTimeOffset.Now;
+            this.Purchase = new Purchase(Client, BookState, DateTimeOffset, 10);
         }
 
         [TestMethod]
@@ -37,7 +37,7 @@ namespace Task1Tests_TP
         [TestMethod]
         public void PurchaseGetPurchaseDateTest()
         {
-            Assert.AreEqual(DataTimeOffset, Purchase.PurchaseTime);
+            Assert.AreEqual(DateTimeOffset, Purchase.PurchaseTime);
         }
 
         [TestMethod]
