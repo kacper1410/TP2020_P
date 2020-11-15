@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Task1_TP.Objects
+namespace Task1_TP.Data.ObjectModel
 {
     public class BookState
     {
@@ -17,6 +17,16 @@ namespace Task1_TP.Objects
             Book = book;
             Price = price;
             Quantity = quantity;
+        }
+
+        public override string ToString()
+        {
+            string result = "BookState: \n" +
+                " " + Book.ToString() + "\n" +
+                " Price: " + Price + "\n" +
+                " Quantity: " + Quantity + "\n";
+
+            return result;
         }
     }
 }

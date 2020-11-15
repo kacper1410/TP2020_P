@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Task1_TP.Objects;
+using Task1_TP.Data.ObjectModel;
 
 namespace Task1Tests_TP
 
@@ -30,7 +30,7 @@ namespace Task1Tests_TP
         [TestMethod]
         public void BookGetCoverTypeTest()
         {
-            Assert.AreEqual(CoverType.HardcoverCaseWrap, Book.CoverType);
+            Assert.AreEqual(CoverType.HardcoverCaseWrap, Book.BookCoverType);
         }
     }
 }

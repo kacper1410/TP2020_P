@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Task1_TP.Objects;
+using Task1_TP.Data.DataFillers;
+using Task1_TP.Data.ObjectModel;
 
-namespace Task1_TP
+namespace Task1_TP.Data
 {
     public class DataRepository : IDataRepository
     {
         private DataContext DataContext;
 
-        public DataRepository()
+        public DataRepository(IDataFiller dataFiller)
         {
+            dataFiller.fill(this);
             DataContext = new DataContext();
         }
 

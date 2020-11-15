@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Task1_TP.Objects;
+using Task1_TP.Data.ObjectModel;
 
-namespace Task1_TP
+namespace Task1_TP.Data
 {
-    interface IDataRepository
+    public interface IDataRepository
     {
         void AddBook(Book book);
         Book GetBook(Guid bookId);

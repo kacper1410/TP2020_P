@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace Task1_TP.Objects
+namespace Task1_TP.Data.ObjectModel
 {
     public class Book
     {
         public Guid BookId { get; }
         public string Title { get; set; }
         public string Author { get; set; }
-        public CoverType CoverType { get; set; }
+        public CoverType BookCoverType { get; set; }
         public string Genre { get; set; }
 
         public Book(string title, string author, CoverType coverType, string genre)
@@ -15,8 +15,19 @@ namespace Task1_TP.Objects
             this.BookId = Guid.NewGuid();
             this.Title = title;
             this.Author = author;
-            this.CoverType = coverType;
+            this.BookCoverType = coverType;
             this.Genre = genre;
+        }
+
+        public override string ToString()
+        {
+            string result = "Book: \n" +
+                " Title: " + Title + "\n" +
+                " Author: " + Author + "\n" +
+                " CoverType: " + Enum.GetName(typeof(CoverType), BookCoverType) + "\n" +
+                " Genre: " + Genre + "\n"; 
+
+            return result;
         }
     }
 
@@ -27,4 +38,5 @@ namespace Task1_TP.Objects
         HardcoverDustJacket,
         Other
     }
+    
 }

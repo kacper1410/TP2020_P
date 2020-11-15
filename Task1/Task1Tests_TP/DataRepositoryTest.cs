@@ -1,10 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using Task1_TP;
-using Task1_TP.Objects;
+using Task1_TP.Data;
+using Task1_TP.Data.DataFillers;
+using Task1_TP.Data.ObjectModel;
 
 namespace Task1Tests_TP
 {
@@ -20,7 +19,7 @@ namespace Task1Tests_TP
 
         public DataRepositoryTest()
         {
-            this.DataRepository = new DataRepository();
+            this.DataRepository = new DataRepository(new EmptyDataFiller());
             this.Book = new Book("tytuł", "autor", CoverType.HardcoverCaseWrap, "gatunek");
             this.BookState = new BookState(Book, 50, 30);
             this.Client = new Client("imie", "nazwisko", 20);
@@ -110,10 +109,15 @@ namespace Task1Tests_TP
         [TestMethod]
         public void GetAllClientsTest()
         {
-            List<Client> Clients = new List<Client>();
-            Clients.Add(Client);
             DataRepository.AddClient(Client);
-            Assert.AreEqual(DataRepository.GetAllClients().ToString(), Clients.ToString());
+            IEnumerator<Client> Enumerator = DataRepository.GetAllClients().GetEnumerator();
+            int size = 0;
+            while (Enumerator.MoveNext())
+            {
+                size++;
+                Assert.AreEqual(Client, Enumerator.Current);
+            }
+            Assert.AreEqual(1, size);
         }
 
         [TestMethod]

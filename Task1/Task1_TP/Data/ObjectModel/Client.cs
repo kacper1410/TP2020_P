@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Task1_TP.Objects
+namespace Task1_TP.Data.ObjectModel
 {
     public class Client
     {
@@ -17,6 +17,16 @@ namespace Task1_TP.Objects
             Name = name;
             Surname = surname;
             Age = age;
+        }
+
+        public override string ToString()
+        {
+            string result = "Client: \n" +
+                " Name: " + Name + "\n" +
+                " Surname: " + Surname + "\n" +
+                " Age: " + Age + "\n";
+
+            return result;
         }
     }
 }

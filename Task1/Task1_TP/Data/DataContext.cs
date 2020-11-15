@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-using Task1_TP.Objects;
+using Task1_TP.Data.ObjectModel;
 
-namespace Task1_TP
+namespace Task1_TP.Data
 {
     class DataContext
     {

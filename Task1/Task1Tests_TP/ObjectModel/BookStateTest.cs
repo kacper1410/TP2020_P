@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Task1_TP.Objects;
+using Task1_TP.Data.ObjectModel;
 
 namespace Task1Tests_TP
 
