@@ -33,18 +33,31 @@ namespace Task1Tests_TP
         [TestMethod]
         public void GetAllBooksTest()
         {
-            Assert.AreEqual(DataService.GetAllBooks().ToString(), DataRepository.GetAllBooks().ToString());
+            DataService.AddBookState(BookState);
+            IEnumerator<Book> enumerator = DataService.GetAllBooks().GetEnumerator();
+            int size = 0;
+            while (enumerator.MoveNext())
+            {
+                size++;
+                Assert.AreEqual(Book, enumerator.Current);
+            }
+            Assert.AreEqual(1, size);
         }
 
         [TestMethod]
         public void AddBookStateTest()
         {
-            Book Book = new Book("tytuł2", "autor2", CoverType.HardcoverCaseWrap, "gatunek2");
-            BookState BookState = new BookState(Book, 500, 300);
-            DataService.AddBookState(BookState);
-            IEnumerator enumerator = DataService.GetAllBookStatesForBook(Book).GetEnumerator();
-            enumerator.MoveNext();
-            Assert.AreEqual(enumerator.Current, BookState);
+            Book book2 = new Book("tytuł2", "autor2", CoverType.HardcoverCaseWrap, "gatunek2");
+            BookState bookState2 = new BookState(book2, 500, 300);
+            DataService.AddBookState(bookState2);
+            IEnumerator enumerator = DataService.GetAllBookStatesForBook(book2).GetEnumerator();
+            int size = 0;
+            while (enumerator.MoveNext())
+            {
+                size++;
+                Assert.AreEqual(bookState2, enumerator.Current);
+            }
+            Assert.AreEqual(1, size);
         }
 
         [TestMethod]
@@ -58,6 +71,7 @@ namespace Task1Tests_TP
                 size++;
                 Assert.AreEqual(enumerator.Current, BookState);
             }
+            Assert.AreEqual(1, size);
         }
 
         [TestMethod]
@@ -89,6 +103,8 @@ namespace Task1Tests_TP
             {
                 Assert.AreEqual(20, ((BookState)enumerator2.Current).Quantity);
             }
+            // Check if quantity of bought books is higer then book state quantity
+            Assert.IsNull(DataService.PurchaseBook(Client, BookState, 21));
         }
 
         [TestMethod]

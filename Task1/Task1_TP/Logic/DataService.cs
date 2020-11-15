@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Task1_TP.Data;
 using Task1_TP.Data.ObjectModel;
 
@@ -34,11 +33,6 @@ namespace Task1_TP.Logic
                     DataRepository.AddClient(client);
                 }
             }
-            //else
-            //{
-            //    Purchase = new Purchase(client, bookState, DateTimeOffset.Now, bookState.Quantity);
-            //    bookState.Quantity = 0;
-            //}
 
             return Purchase;
         }
@@ -114,11 +108,6 @@ namespace Task1_TP.Logic
         public void ChangePrice(BookState bookState, int newPrice)
         {
             DataRepository.UpdateBookState(bookState.BookStateId, new BookState(bookState.Book, newPrice, bookState.Quantity));
-        }
-
-        public void AddClient(Client client)
-        {
-            DataRepository.AddClient(client);
         }
     }
 }

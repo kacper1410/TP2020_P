@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Task1_TP.Data.ObjectModel;
 
 namespace Task1_TP.Logic
@@ -17,6 +15,5 @@ namespace Task1_TP.Logic
         void AddBookState(BookState bookState);
         void AddBooksToBookState(BookState bookState, int quantity);
         void ChangePrice(BookState bookState, int newPrice);
-        void AddClient(Client client);
     }
 }

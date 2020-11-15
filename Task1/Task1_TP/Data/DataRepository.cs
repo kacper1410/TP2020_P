@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Task1_TP.Data.DataFillers;
 using Task1_TP.Data.ObjectModel;
 
@@ -12,8 +11,8 @@ namespace Task1_TP.Data
 
         public DataRepository(IDataFiller dataFiller)
         {
-            dataFiller.Fill(this);
             DataContext = new DataContext();
+            dataFiller.Fill(this);
         }
 
         public void AddBook(Book book)

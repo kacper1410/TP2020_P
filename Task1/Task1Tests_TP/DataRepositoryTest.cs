@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Task1_TP.Data;
 using Task1_TP.Data.DataFillers;
 using Task1_TP.Data.ObjectModel;
@@ -32,28 +31,28 @@ namespace Task1Tests_TP
         {
 
             DataRepository.AddBook(Book);
-            Assert.AreEqual(DataRepository.GetBook(Book.BookId), Book);
+            Assert.AreEqual(Book, DataRepository.GetBook(Book.BookId));
         }
 
         [TestMethod]
         public void AddAndGetBookStateTest()
         {
             DataRepository.AddBookState(BookState);
-            Assert.AreEqual(DataRepository.GetBookState(BookState.BookStateId), BookState);
+            Assert.AreEqual(BookState, DataRepository.GetBookState(BookState.BookStateId));
         }
 
         [TestMethod]
         public void AddAndGetClientTest()
         {
             DataRepository.AddClient(Client);
-            Assert.AreEqual(DataRepository.GetClient(Client.ClientId), Client);
+            Assert.AreEqual(Client, DataRepository.GetClient(Client.ClientId));
         }
 
         [TestMethod]
         public void AddAndGetPurchaseTest()
         {
             DataRepository.AddPurchase(Purchase);
-            Assert.AreEqual(DataRepository.GetPurchase(Purchase.PurchaseId), Purchase);
+            Assert.AreEqual(Purchase, DataRepository.GetPurchase(Purchase.PurchaseId));
         }
 
         [TestMethod]
@@ -91,31 +90,41 @@ namespace Task1Tests_TP
         [TestMethod]
         public void GetAllBooksTest()
         {
-            List<Book> Books = new List<Book>();
-            Books.Add(Book);
             DataRepository.AddBook(Book);
-            Assert.AreEqual(DataRepository.GetAllBooks().ToString(), Books.ToString());
+            IEnumerator<Book> enumerator = DataRepository.GetAllBooks().GetEnumerator();
+            int size = 0;
+            while (enumerator.MoveNext())
+            {
+                size++;
+                Assert.AreEqual(Book, enumerator.Current);
+            }
+            Assert.AreEqual(1, size);
         }
 
         [TestMethod]
         public void GetAllBookStateTest()
         {
-            List<BookState> BookStates = new List<BookState>();
-            BookStates.Add(BookState);
             DataRepository.AddBookState(BookState);
-            Assert.AreEqual(DataRepository.GetAllBookStates().ToString(), BookStates.ToString());
+            IEnumerator<BookState> enumerator = DataRepository.GetAllBookStates().GetEnumerator();
+            int size = 0;
+            while (enumerator.MoveNext())
+            {
+                size++;
+                Assert.AreEqual(BookState, enumerator.Current);
+            }
+            Assert.AreEqual(1, size);
         }
 
         [TestMethod]
         public void GetAllClientsTest()
         {
             DataRepository.AddClient(Client);
-            IEnumerator<Client> Enumerator = DataRepository.GetAllClients().GetEnumerator();
+            IEnumerator<Client> enumerator = DataRepository.GetAllClients().GetEnumerator();
             int size = 0;
-            while (Enumerator.MoveNext())
+            while (enumerator.MoveNext())
             {
                 size++;
-                Assert.AreEqual(Client, Enumerator.Current);
+                Assert.AreEqual(Client, enumerator.Current);
             }
             Assert.AreEqual(1, size);
         }
@@ -123,59 +132,64 @@ namespace Task1Tests_TP
         [TestMethod]
         public void GetAllPurchasesTest()
         {
-            ObservableCollection<Purchase> Purchases = new ObservableCollection<Purchase>();
-            Purchases.Add(Purchase);
             DataRepository.AddPurchase(Purchase);
-            Assert.AreEqual(DataRepository.GetAllPurchases().ToString(), Purchases.ToString());
+            IEnumerator<Purchase> enumerator = DataRepository.GetAllPurchases().GetEnumerator();
+            int size = 0;
+            while (enumerator.MoveNext())
+            {
+                size++;
+                Assert.AreEqual(Purchase, enumerator.Current);
+            }
+            Assert.AreEqual(1, size);
         }
 
 
         [TestMethod]
         public void UpdateBookTest()
         {
-            Book Book2 = new Book("tytuł2", "autor2", CoverType.Paperback, "gatunek2");
+            Book book2 = new Book("tytuł2", "autor2", CoverType.Paperback, "gatunek2");
 
             DataRepository.AddBook(Book);
-            DataRepository.UpdateBook(Book.BookId, Book2);
+            DataRepository.UpdateBook(Book.BookId, book2);
 
             Assert.IsNull(DataRepository.GetBook(Book.BookId));
-            Assert.AreEqual(DataRepository.GetBook(Book2.BookId), Book2);
+            Assert.AreEqual(book2, DataRepository.GetBook(book2.BookId));
         }
 
         [TestMethod]
         public void UpdateBookStateTest()
         {
-            BookState BookState2 = new BookState(Book, 500, 300);
+            BookState bookState2 = new BookState(Book, 500, 300);
 
             DataRepository.AddBookState(BookState);
-            DataRepository.UpdateBookState(BookState.BookStateId , BookState2);
+            DataRepository.UpdateBookState(BookState.BookStateId , bookState2);
 
             Assert.IsNull(DataRepository.GetBookState(BookState.BookStateId));
-            Assert.AreEqual(DataRepository.GetBookState(BookState2.BookStateId), BookState2);
+            Assert.AreEqual(bookState2, DataRepository.GetBookState(bookState2.BookStateId));
         }
 
         [TestMethod]
         public void UpdateClientTest()
         {
-            Client Client2 = new Client("imie2", "nazwisko2", 200);
+            Client client2 = new Client("imie2", "nazwisko2", 200);
             
             DataRepository.AddClient(Client);
-            DataRepository.UpdateClient(Client.ClientId, Client2);
+            DataRepository.UpdateClient(Client.ClientId, client2);
 
             Assert.IsNull(DataRepository.GetClient(Client.ClientId));
-            Assert.AreEqual(DataRepository.GetClient(Client2.ClientId), Client2);
+            Assert.AreEqual(client2, DataRepository.GetClient(client2.ClientId));
         }
 
         [TestMethod]
         public void UpdatePurchaseTest()
         {
-            Purchase Purchase2 = new Purchase(Client, BookState, DateTimeOffset, 10);
+            Purchase purchase2 = new Purchase(Client, BookState, DateTimeOffset, 10);
 
             DataRepository.AddPurchase(Purchase);
-            DataRepository.UpdatePurchase(Purchase.PurchaseId, Purchase2);
+            DataRepository.UpdatePurchase(Purchase.PurchaseId, purchase2);
 
             Assert.IsNull(DataRepository.GetPurchase(Purchase.PurchaseId));
-            Assert.AreEqual(DataRepository.GetPurchase(Purchase2.PurchaseId), Purchase2);
+            Assert.AreEqual(purchase2, DataRepository.GetPurchase(purchase2.PurchaseId));
         }
     }
 }
