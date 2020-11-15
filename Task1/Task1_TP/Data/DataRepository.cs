@@ -12,7 +12,7 @@ namespace Task1_TP.Data
 
         public DataRepository(IDataFiller dataFiller)
         {
-            dataFiller.fill(this);
+            dataFiller.Fill(this);
             DataContext = new DataContext();
         }
 

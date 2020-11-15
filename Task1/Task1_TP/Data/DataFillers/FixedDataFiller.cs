@@ -6,7 +6,7 @@ namespace Task1_TP.Data.DataFillers
 {
     public class FixedDataFiller : IDataFiller
     {
-        public void fill(IDataRepository dataRepository)
+        public void Fill(IDataRepository dataRepository)
         {
         }
     }
