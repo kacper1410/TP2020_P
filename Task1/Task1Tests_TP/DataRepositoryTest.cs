@@ -191,5 +191,49 @@ namespace Task1Tests_TP
             Assert.IsNull(DataRepository.GetPurchase(Purchase.PurchaseId));
             Assert.AreEqual(purchase2, DataRepository.GetPurchase(purchase2.PurchaseId));
         }
+        
+        [TestMethod]
+        public void DataRepositoryEmptyFillerTest()
+        {
+            DataRepository = new DataRepository(new EmptyDataFiller());
+
+            Assert.IsFalse(DataRepository.GetAllBooks().GetEnumerator().MoveNext());
+            Assert.IsFalse(DataRepository.GetAllBookStates().GetEnumerator().MoveNext());
+            Assert.IsFalse(DataRepository.GetAllClients().GetEnumerator().MoveNext());
+            Assert.IsFalse(DataRepository.GetAllPurchases().GetEnumerator().MoveNext());
+        }
+        
+        [TestMethod]
+        public void DataRepositoryFixedFillerTest()
+        {
+            DataRepository = new DataRepository(new FixedDataFiller());
+            int size = 0;
+            foreach (Book book in DataRepository.GetAllBooks())
+            {
+                size++;
+            }
+            Assert.AreEqual(5, size);
+
+            size = 0;
+            foreach (BookState bookState in DataRepository.GetAllBookStates())
+            {
+                size++;
+            }
+            Assert.AreEqual(5, size);
+
+            size = 0;
+            foreach (Client client in DataRepository.GetAllClients())
+            {
+                size++;
+            }
+            Assert.AreEqual(5, size);
+
+            size = 0;
+            foreach (Purchase purchase in DataRepository.GetAllPurchases())
+            {
+                size++;
+            }
+            Assert.AreEqual(5, size);
+        }
     }
 }
