@@ -17,8 +17,8 @@ namespace Task1Tests_TP
         {
             this.Book = new Book("tytuł", "autor", CoverType.HardcoverCaseWrap, "gatunek");
             this.Client = new Client("imie", "nazwisko", 20);
-            this.Guid = Guid.NewGuid();
-            this.Purchase = new Purchase(Guid, Client, new Book[] { Book });
+            this.Purchase = new Purchase(Client, new Book[] { Book });
+            this.Guid = Purchase.PurchaseId;
         }
 
         [TestMethod]

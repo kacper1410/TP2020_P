@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Task2_TP.ObjectModel
 {
-    public class Book
+    public class Book : ISerializable
     {
         public Guid BookId { get; set; }
         public string Title { get; set; }
@@ -31,6 +32,25 @@ namespace Task2_TP.ObjectModel
                 " Genre: " + Genre + "\n"; 
 
             return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Book book &&
+                   BookId.Equals(book.BookId) &&
+                   Title == book.Title &&
+                   Author == book.Author &&
+                   BookCoverType == book.BookCoverType &&
+                   Genre == book.Genre;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("BookId", BookId);
+            info.AddValue("Title", Title);
+            info.AddValue("Author", Author);
+            info.AddValue("BookCoverType", BookCoverType);
+            info.AddValue("Genre", Genre);
         }
     }
 

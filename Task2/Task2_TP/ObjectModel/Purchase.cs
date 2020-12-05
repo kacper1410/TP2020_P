@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Task2_TP.ObjectModel
 {
     [XmlRoot("Purchase", IsNullable = false)]
-    public class Purchase
+    public class Purchase : ISerializable
     {
         public Guid PurchaseId { get; set; }
         public Client Client { get; set; }
@@ -12,9 +14,9 @@ namespace Task2_TP.ObjectModel
         public Book[] Books { get; set; }
 
         public Purchase() { }
-        public Purchase(Guid purchaseId, Client client, Book[] books)
+        public Purchase(Client client, Book[] books)
         {
-            PurchaseId = purchaseId;
+            PurchaseId = Guid.NewGuid();
             Client = client;
             Books = books;
         }
@@ -30,6 +32,35 @@ namespace Task2_TP.ObjectModel
             }
 
             return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Purchase purchase = (Purchase)obj;
+            Boolean booksEqual = true;
+
+            for (int i = 0; i < Books.Length; i++)
+            {
+                if (!Books[i].Equals(purchase.Books[i])) 
+                {
+                    booksEqual = false;
+                    break;
+                }
+            }
+
+            return PurchaseId.Equals(purchase.PurchaseId) &&
+                   EqualityComparer<Client>.Default.Equals(Client, purchase.Client) &&
+                   booksEqual;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("PurchaseId", PurchaseId);
+            Client.GetObjectData(info, context);
+            foreach (Book book in Books)
+            {
+                book.GetObjectData(info, context);
+            }
         }
     }
 }

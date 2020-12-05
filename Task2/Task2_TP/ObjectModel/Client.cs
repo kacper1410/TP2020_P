@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Task2_TP.ObjectModel
 {
-    public class Client
+    public class Client : ISerializable
     {
         public Guid ClientId { get; set; }
         public string Name { get; set; }
@@ -28,6 +29,23 @@ namespace Task2_TP.ObjectModel
                 " Age: " + Age + "\n";
 
             return result;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Client client &&
+                   ClientId.Equals(client.ClientId) &&
+                   Name == client.Name &&
+                   Surname == client.Surname &&
+                   Age == client.Age;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("ClientId", ClientId);
+            info.AddValue("Name", Name);
+            info.AddValue("Surname", Surname);
+            info.AddValue("Age", Age);
         }
     }
 }
