@@ -1,12 +1,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using Task2_TP;
 using Task2_TP.ObjectModel;
 
 namespace Task2Test_TP
 {
     [TestClass]
-    public class UnitTest1
+    public class XmlFileTest
     {
         Book Book;
         Book Book1;
@@ -14,7 +15,7 @@ namespace Task2Test_TP
         Purchase Purchase;
         Guid Guid;
 
-        public UnitTest1()
+        public XmlFileTest()
         {
             this.Book = new Book("tytu³", "autor", CoverType.HardcoverCaseWrap, "gatunek");
             this.Book1 = new Book("tytu³1", "autor1", CoverType.HardcoverCaseWrap, "gatunek");
@@ -26,7 +27,9 @@ namespace Task2Test_TP
         [TestMethod]
         public void TestMethod1()
         {
-            XmlFile.PurchasesToXmlFile(Purchase, "C:\\Users\\Patryk\\Desktop\\test.xml");
+            XmlFile.PurchasesToXmlFile(Purchase, "..\\..\\..\\..\\TestResults\\test.xml");
+            Purchase purchase = XmlFile.XmlFileToPurchase("..\\..\\..\\..\\TestResults\\test.xml");
+            Debug.Write(purchase);
         }
     }
 }

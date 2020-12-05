@@ -4,7 +4,7 @@ namespace Task2_TP.ObjectModel
 {
     public class Client
     {
-        public Guid ClientId { get; }
+        public Guid ClientId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Age { get; set; }
@@ -22,6 +22,7 @@ namespace Task2_TP.ObjectModel
         public override string ToString()
         {
             string result = "Client: \n" +
+                " " + ClientId + "\n" +
                 " Name: " + Name + "\n" +
                 " Surname: " + Surname + "\n" +
                 " Age: " + Age + "\n";

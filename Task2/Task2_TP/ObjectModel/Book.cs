@@ -4,7 +4,7 @@ namespace Task2_TP.ObjectModel
 {
     public class Book
     {
-        public Guid BookId { get; }
+        public Guid BookId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public CoverType BookCoverType { get; set; }
@@ -24,6 +24,7 @@ namespace Task2_TP.ObjectModel
         public override string ToString()
         {
             string result = "Book: \n" +
+                " " + BookId + "\n" +
                 " Title: " + Title + "\n" +
                 " Author: " + Author + "\n" +
                 " CoverType: " + Enum.GetName(typeof(CoverType), BookCoverType) + "\n" +
