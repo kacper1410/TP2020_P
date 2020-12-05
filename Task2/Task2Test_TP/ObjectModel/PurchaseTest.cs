@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using Task2_TP.ObjectModel;
 
 namespace Task1Tests_TP
@@ -8,18 +9,16 @@ namespace Task1Tests_TP
     public class PurchaseTest
     {
         Book Book;
-        BookState BookState;
         Client Client;
         Purchase Purchase;
-        System.DateTimeOffset DateTimeOffset;
+        Guid Guid;
 
         public PurchaseTest()
         {
             this.Book = new Book("tytuł", "autor", CoverType.HardcoverCaseWrap, "gatunek");
-            this.BookState = new BookState(Book, 50, 30);
             this.Client = new Client("imie", "nazwisko", 20);
-            this.DateTimeOffset = System.DateTimeOffset.Now;
-            this.Purchase = new Purchase(Client, BookState, DateTimeOffset, 10);
+            this.Guid = Guid.NewGuid();
+            this.Purchase = new Purchase(Guid, Client, new Book[] { Book });
         }
 
         [TestMethod]
@@ -29,21 +28,15 @@ namespace Task1Tests_TP
         }
 
         [TestMethod]
-        public void PurchaseGetBookStateTest()
+        public void PurchaseGetGuidTest()
         {
-            Assert.AreEqual( BookState, Purchase.BookState);
+            Assert.AreEqual(Guid, Purchase.PurchaseId);
         }
 
         [TestMethod]
-        public void PurchaseGetPurchaseDateTest()
+        public void PurchaseGetBooksTest()
         {
-            Assert.AreEqual(DateTimeOffset, Purchase.PurchaseTime);
-        }
-
-        [TestMethod]
-        public void PurchaseGetBoughtQuantityTest()
-        {
-            Assert.AreEqual(10, Purchase.BoughtQuantity);
+            Assert.AreEqual(Book, Purchase.Books[0]);
         }
     }
 }
