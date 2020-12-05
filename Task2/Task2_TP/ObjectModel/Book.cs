@@ -10,6 +10,8 @@ namespace Task2_TP.ObjectModel
         public CoverType BookCoverType { get; set; }
         public string Genre { get; set; }
 
+        public Book() { }
+
         public Book(string title, string author, CoverType coverType, string genre)
         {
             this.BookId = Guid.NewGuid();

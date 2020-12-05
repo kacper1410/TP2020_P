@@ -9,6 +9,8 @@ namespace Task2_TP.ObjectModel
         public string Surname { get; set; }
         public int Age { get; set; }
 
+
+        public Client() { }
         public Client(string name, string surname, int age)
         {
             ClientId = Guid.NewGuid();
