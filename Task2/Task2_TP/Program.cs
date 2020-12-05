@@ -1,5 +1,4 @@
 ﻿using System;
-using Task1_TP.Data;
 
 namespace Task2_TP
 {

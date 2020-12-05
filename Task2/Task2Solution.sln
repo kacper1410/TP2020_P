@@ -3,13 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task1Tests_TP", "Task1Tests_TP\Task1Tests_TP.csproj", "{CE33CD0F-0414-4A96-A39B-A8650998DCCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2_TP", "Task2_TP\Task2_TP.csproj", "{9C85E33A-4539-40ED-B30E-0A9C76CAD10C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task1_TP", "Task1_TP\Task1_TP.csproj", "{AA955F85-1BD0-4CDA-86BA-3078E9DD4910}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_TP", "Task2_TP\Task2_TP.csproj", "{9C85E33A-4539-40ED-B30E-0A9C76CAD10C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2Tests_TP", "Task2Test_TP\Task2Tests_TP.csproj", "{8DC2EDE5-00A7-46D8-A1F5-DEABED4C88D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2Tests_TP", "Task2Test_TP\Task2Tests_TP.csproj", "{8DC2EDE5-00A7-46D8-A1F5-DEABED4C88D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CE33CD0F-0414-4A96-A39B-A8650998DCCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE33CD0F-0414-4A96-A39B-A8650998DCCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE33CD0F-0414-4A96-A39B-A8650998DCCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE33CD0F-0414-4A96-A39B-A8650998DCCF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA955F85-1BD0-4CDA-86BA-3078E9DD4910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA955F85-1BD0-4CDA-86BA-3078E9DD4910}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA955F85-1BD0-4CDA-86BA-3078E9DD4910}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA955F85-1BD0-4CDA-86BA-3078E9DD4910}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C85E33A-4539-40ED-B30E-0A9C76CAD10C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C85E33A-4539-40ED-B30E-0A9C76CAD10C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C85E33A-4539-40ED-B30E-0A9C76CAD10C}.Release|Any CPU.ActiveCfg = Release|Any CPU
