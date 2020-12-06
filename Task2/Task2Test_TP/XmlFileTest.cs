@@ -9,11 +9,11 @@ namespace Task2Test_TP
     [TestClass]
     public class XmlFileTest
     {
-        Book Book;
-        Book Book1;
-        Client Client;
-        Purchase Purchase;
-        PurchaseRecord PurchaseRecord;
+        private Book Book;
+        private Book Book1;
+        private Client Client;
+        private Purchase Purchase;
+        private PurchaseRecord PurchaseRecord;
 
         public XmlFileTest()
         {

@@ -30,6 +30,11 @@ namespace Task2_TP
             {
                 formatter.Serialize(stream, purchaseRecord);
             }
+
+            //using (Stream stream = new FileStream(path, FileMode.Open))
+            //{
+            //    formatter.Deserialize(stream);
+            //}
             //SerializationInfo serializationInfo = new SerializationInfo(purchaseRecord.GetType(), new FormatterConverter());
             //StreamingContext streamingContext = new StreamingContext(StreamingContextStates.File);
             //purchaseRecord.GetObjectData(serializationInfo, streamingContext);

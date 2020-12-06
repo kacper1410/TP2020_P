@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Runtime.Serialization;
 using Task2_TP.ObjectModel;
 
 namespace Task1Tests_TP
@@ -31,6 +32,14 @@ namespace Task1Tests_TP
         public void BookGetCoverTypeTest()
         {
             Assert.AreEqual(CoverType.HardcoverCaseWrap, Book.BookCoverType);
+        }
+
+        [TestMethod]
+        public void BookGetObjectDataTest()
+        {
+            SerializationInfo serializationInfo = new SerializationInfo(Book.GetType(), new FormatterConverter());
+            StreamingContext streamingContext = new StreamingContext(StreamingContextStates.File);
+            Assert.AreEqual(false, serializationInfo.GetEnumerator().MoveNext());
         }
     }
 }

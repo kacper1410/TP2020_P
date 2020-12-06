@@ -3,6 +3,8 @@ using System.Runtime.Serialization;
 using System.IO;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Task2_TP.ObjectModel;
 
 namespace Task2_TP
 {
@@ -24,7 +26,6 @@ namespace Task2_TP
             {
                 foreach (XElement element in values)
                 {
-                    Console.WriteLine($"{element.Name} {element.Value}\n");
                     writer.Write($"{element.Name} {element.Value}\n");
                 }
             }
@@ -32,7 +33,12 @@ namespace Task2_TP
 
         public override object Deserialize(Stream serializationStream)
         {
-            throw new NotImplementedException();
+            using (StreamReader reader = new StreamReader(serializationStream))
+            {
+                Console.WriteLine(reader.Read());
+            }
+
+            return new PurchaseRecord();
         }
 
 
