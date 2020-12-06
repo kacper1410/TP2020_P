@@ -9,7 +9,6 @@ namespace Task2_TP
     {
         static void Main(string[] args)
         {
-
             Book book1 = new Book("Uncle Tom's Cabin", "Harriet Beecher Stowe", CoverType.Paperback, "Mystery");
             Book book2 = new Book("Brainwalker", "Robyn Mundell", CoverType.Other, "Horror");
             Book book3 = new Book("Inferno", "Dante Alighieri", CoverType.HardcoverCaseWrap, "Science");
@@ -31,10 +30,11 @@ namespace Task2_TP
                 formatter.Serialize(stream, purchaseRecord);
             }
 
-            //using (Stream stream = new FileStream(path, FileMode.Open))
-            //{
-            //    formatter.Deserialize(stream);
-            //}
+            using (Stream stream = new FileStream(path, FileMode.Open))
+            {
+                formatter.Deserialize(stream);
+            }
+
             //SerializationInfo serializationInfo = new SerializationInfo(purchaseRecord.GetType(), new FormatterConverter());
             //StreamingContext streamingContext = new StreamingContext(StreamingContextStates.File);
             //purchaseRecord.GetObjectData(serializationInfo, streamingContext);

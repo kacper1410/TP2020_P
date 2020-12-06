@@ -19,9 +19,25 @@ namespace Task2_TP.ObjectModel
             Purchases = purchases;
         }
 
+        public PurchaseRecord(SerializationInfo serializationInfo)
+        {
+            PurchaseRecordId = Guid.Parse((string)serializationInfo.GetValue("PurchaseRecordId_", typeof(string)));
+            List<Purchase> purchases = new List<Purchase>();
+            int index = 0;
+            while (false)
+            {
+                
+            }
+            Console.WriteLine(PurchaseRecordId);
+            foreach (SerializationEntry item in serializationInfo)
+            {
+                Console.WriteLine(item.Name + item.Value);
+            }
+        }
+
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("PurchaseRecordId", PurchaseRecordId);
+            info.AddValue("PurchaseRecordId_", PurchaseRecordId);
             int index = 0;
             foreach (Purchase purchase in Purchases)
             {

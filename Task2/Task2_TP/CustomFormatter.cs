@@ -8,7 +8,7 @@ using Task2_TP.ObjectModel;
 
 namespace Task2_TP
 {
-    class CustomFormatter : Formatter
+    public class CustomFormatter : Formatter
     {
         private List<XElement> values = new List<XElement>();
 
@@ -35,7 +35,22 @@ namespace Task2_TP
         {
             using (StreamReader reader = new StreamReader(serializationStream))
             {
-                Console.WriteLine(reader.Read());
+                SerializationInfo serializationInfo = new SerializationInfo(typeof(PurchaseRecord), new FormatterConverter());
+                string line = reader.ReadLine();
+                while (line != null)
+                {
+                    string[] splitLine = line.Split("_ ");
+                    if (splitLine.Length > 2)
+                    {
+                        for (int i = 1; i < splitLine.Length; i++)
+                        {
+                            splitLine[1] += splitLine[i];
+                        }
+                    }
+                    serializationInfo.AddValue(splitLine[0] + "_", splitLine[1]);
+                    line = reader.ReadLine();
+                }
+                PurchaseRecord purchaseRecord = new PurchaseRecord(serializationInfo);
             }
 
             return new PurchaseRecord();
