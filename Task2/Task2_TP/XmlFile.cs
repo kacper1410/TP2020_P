@@ -22,7 +22,9 @@ namespace Task2_TP
 
             FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
             using (XmlReader reader = XmlReader.Create(fileStream))
-            purchase = (PurchaseRecord)xmlSerializer.Deserialize(reader);
+            {
+                purchase = (PurchaseRecord)xmlSerializer.Deserialize(reader);
+            }
             return purchase;
         }
     }

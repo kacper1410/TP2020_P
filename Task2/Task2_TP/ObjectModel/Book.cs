@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Task2_TP.ObjectModel
 {
-    public class Book : ISerializable
+    public class Book
     {
         public Guid BookId { get; set; }
         public string Title { get; set; }
@@ -44,13 +44,13 @@ namespace Task2_TP.ObjectModel
                    Genre == book.Genre;
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData(SerializationInfo info, StreamingContext context, int indexA, int indexB)
         {
-            info.AddValue("BookId", BookId);
-            info.AddValue("Title", Title);
-            info.AddValue("Author", Author);
-            info.AddValue("BookCoverType", BookCoverType);
-            info.AddValue("Genre", Genre);
+            info.AddValue("BookId_" + indexA + "_" + indexB + "_", BookId);
+            info.AddValue("Title_" + indexA + "_" + indexB + "_", Title);
+            info.AddValue("Author_" + indexA + "_" + indexB + "_", Author);
+            info.AddValue("BookCoverType_" + indexA + "_" + indexB + "_", BookCoverType);
+            info.AddValue("Genre_" + indexA + "_" + indexB + "_", Genre);
         }
     }
 

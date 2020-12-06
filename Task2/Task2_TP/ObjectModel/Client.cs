@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Task2_TP.ObjectModel
 {
-    public class Client : ISerializable
+    public class Client
     {
         public Guid ClientId { get; set; }
         public string Name { get; set; }
@@ -40,12 +40,12 @@ namespace Task2_TP.ObjectModel
                    Age == client.Age;
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData(SerializationInfo info, StreamingContext context, int index)
         {
-            info.AddValue("ClientId", ClientId);
-            info.AddValue("Name", Name);
-            info.AddValue("Surname", Surname);
-            info.AddValue("Age", Age);
+            info.AddValue("ClientId_" + index + "_", ClientId);
+            info.AddValue("Name_" + index + "_", Name);
+            info.AddValue("Surname_" + index + "_", Surname);
+            info.AddValue("Age_" + index + "_", Age);
         }
     }
 }

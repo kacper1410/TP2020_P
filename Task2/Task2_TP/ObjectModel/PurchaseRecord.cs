@@ -22,9 +22,11 @@ namespace Task2_TP.ObjectModel
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("PurchaseRecordId", PurchaseRecordId);
+            int index = 0;
             foreach (Purchase purchase in Purchases)
             {
-                purchase.GetObjectData(info, context);
+                purchase.GetObjectData(info, context, index);
+                index++;
             }
         }
 

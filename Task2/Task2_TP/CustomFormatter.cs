@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.IO;
+using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace Task2_TP
 {
     class CustomFormatter : Formatter
     {
+        private List<XElement> values = new List<XElement>();
+
         public override void Serialize(Stream serializationStream, object graph)
         {
             ISerializable serializable = (ISerializable)graph;
@@ -14,11 +18,16 @@ namespace Task2_TP
             serializable.GetObjectData(serializationInfo, streamingContext);
             foreach (SerializationEntry item in serializationInfo)
             {
-                this.WriteMember(item.Name, item.Value); // TODO implement needed Write methods
+                this.WriteMember(item.Name, item.Value);
             }
-
-            // 
-            throw new NotImplementedException();
+            using (StreamWriter writer = new StreamWriter(serializationStream))
+            {
+                foreach (XElement element in values)
+                {
+                    Console.WriteLine($"{element.Name} {element.Value}\n");
+                    writer.Write($"{element.Name} {element.Value}\n");
+                }
+            }
         }
 
         public override object Deserialize(Stream serializationStream)
@@ -74,7 +83,7 @@ namespace Task2_TP
 
         protected override void WriteInt32(int val, string name)
         {
-            throw new NotImplementedException();
+            values.Add(new XElement(name, val));
         }
 
         protected override void WriteInt64(long val, string name)
@@ -84,7 +93,7 @@ namespace Task2_TP
 
         protected override void WriteObjectRef(object obj, string name, Type memberType)
         {
-            throw new NotImplementedException();
+            values.Add(new XElement(name, obj.ToString()));
         }
 
         protected override void WriteSByte(sbyte val, string name)
@@ -119,7 +128,7 @@ namespace Task2_TP
 
         protected override void WriteValueType(object obj, string name, Type memberType)
         {
-            throw new NotImplementedException();
+            values.Add(new XElement(name, obj.ToString()));
         }
     }
 }

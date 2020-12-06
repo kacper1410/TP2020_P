@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Task2_TP.ObjectModel
 {
     [XmlRoot("Purchase", IsNullable = false)]
-    public class Purchase : ISerializable
+    public class Purchase
     {
         public Guid PurchaseId { get; set; }
         public Client Client { get; set; }
@@ -53,13 +53,15 @@ namespace Task2_TP.ObjectModel
                    booksEqual;
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void GetObjectData(SerializationInfo info, StreamingContext context, int index)
         {
-            info.AddValue("PurchaseId", PurchaseId);
-            Client.GetObjectData(info, context);
+            info.AddValue("PurchaseId_" + index + "_", PurchaseId);
+            Client.GetObjectData(info, context, index);
+            int indexB = 0;
             foreach (Book book in Books)
             {
-                book.GetObjectData(info, context);
+                book.GetObjectData(info, context, index, indexB);
+                indexB++;
             }
         }
     }
