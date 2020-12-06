@@ -12,6 +12,15 @@ namespace Task2_TP.ObjectModel
 
 
         public Client() { }
+
+        public Client(SerializationInfo serializationInfo, int index)
+        {
+            ClientId = Guid.Parse((string)serializationInfo.GetValue("ClientId_" + index + "_", typeof(string)));
+            Name = (string)serializationInfo.GetValue("Name_" + index + "_", typeof(string));
+            Surname = (string)serializationInfo.GetValue("Surname_" + index + "_", typeof(string));
+            Age = serializationInfo.GetInt32("Age_" + index + "_");
+        }
+
         public Client(string name, string surname, int age)
         {
             ClientId = Guid.NewGuid();

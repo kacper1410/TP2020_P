@@ -33,6 +33,7 @@ namespace Task2_TP
 
         public override object Deserialize(Stream serializationStream)
         {
+            PurchaseRecord purchaseRecord;
             using (StreamReader reader = new StreamReader(serializationStream))
             {
                 SerializationInfo serializationInfo = new SerializationInfo(typeof(PurchaseRecord), new FormatterConverter());
@@ -50,10 +51,10 @@ namespace Task2_TP
                     serializationInfo.AddValue(splitLine[0] + "_", splitLine[1]);
                     line = reader.ReadLine();
                 }
-                PurchaseRecord purchaseRecord = new PurchaseRecord(serializationInfo);
+                purchaseRecord = new PurchaseRecord(serializationInfo);
             }
 
-            return new PurchaseRecord();
+            return purchaseRecord;
         }
 
 

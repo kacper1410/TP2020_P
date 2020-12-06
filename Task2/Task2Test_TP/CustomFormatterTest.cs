@@ -6,6 +6,7 @@ using System.Text;
 using Task2_TP.ObjectModel;
 using Task2_TP;
 using System.IO;
+using System.Diagnostics;
 
 namespace Task2Tests_TP
 {
@@ -36,8 +37,8 @@ namespace Task2Tests_TP
             this.Adam = new Client("Adam", "Kowalski", 28);
             this.Maciej = new Client("Maciej", "Jankowski", 21);
             this.Purchase1 = new Purchase(Adam, new Book[] { Book1, Book2 });
-            this.Purchase2 = new Purchase(Adam, new Book[] { Book4 });
-            this.Purchase3 = new Purchase(Maciej, new Book[] { Book3, Book5 });
+            this.Purchase2 = new Purchase(Adam, new Book[] { Book3 });
+            this.Purchase3 = new Purchase(Maciej, new Book[] { Book4, Book5 });
             this.PurchaseRecord = new PurchaseRecord(new Purchase[] { Purchase1, Purchase2, Purchase3 });
             this.Formatter = new CustomFormatter();
             this.Path = "..\\..\\..\\..\\TestResults\\testCustomSerialization.xml";
@@ -56,7 +57,7 @@ namespace Task2Tests_TP
             {
                 purchaseRecord = (PurchaseRecord)Formatter.Deserialize(stream);
             }
-
+            Assert.IsNotNull(purchaseRecord);
             Assert.AreEqual(PurchaseRecord, purchaseRecord);
             Assert.AreEqual(Purchase1, purchaseRecord.Purchases[0]);
             Assert.AreEqual(Purchase2, purchaseRecord.Purchases[1]);
@@ -64,8 +65,8 @@ namespace Task2Tests_TP
             Assert.AreEqual(Book1, purchaseRecord.Purchases[0].Books[0]);
             Assert.AreEqual(Book2, purchaseRecord.Purchases[0].Books[1]);
             Assert.AreEqual(Book3, purchaseRecord.Purchases[1].Books[0]);
-            Assert.AreEqual(Book3, purchaseRecord.Purchases[2].Books[0]);
-            Assert.AreEqual(Book3, purchaseRecord.Purchases[2].Books[1]);
+            Assert.AreEqual(Book4, purchaseRecord.Purchases[2].Books[0]);
+            Assert.AreEqual(Book5, purchaseRecord.Purchases[2].Books[1]);
         }
     }
 }

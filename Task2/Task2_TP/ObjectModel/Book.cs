@@ -13,6 +13,15 @@ namespace Task2_TP.ObjectModel
 
         public Book() { }
 
+        public Book(SerializationInfo serializationInfo, int indexA, int indexB)
+        {
+            BookId = Guid.Parse((string)serializationInfo.GetValue("BookId_" + indexA + "_" + indexB + "_", typeof(string)));
+            Title = (string)serializationInfo.GetValue("Title_" + indexA + "_" + indexB + "_", typeof(string));
+            Author = (string)serializationInfo.GetValue("Author_" + indexA + "_" + indexB + "_", typeof(string));
+            BookCoverType = (CoverType)Enum.Parse(typeof(CoverType), (string)serializationInfo.GetValue("BookCoverType_" + indexA + "_" + indexB + "_", typeof(string)));
+            Genre = (string)serializationInfo.GetValue("Genre_" + indexA + "_" + indexB + "_", typeof(string));
+        }
+
         public Book(string title, string author, CoverType coverType, string genre)
         {
             this.BookId = Guid.NewGuid();
