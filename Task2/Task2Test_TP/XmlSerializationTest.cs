@@ -1,13 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Diagnostics;
 using Task2_TP;
 using Task2_TP.ObjectModel;
 
 namespace Task2Test_TP
 {
     [TestClass]
-    public class XmlFileTest
+    public class XmlSerializationTest
     {
         private Book Book1;
         private Book Book2;
@@ -20,8 +18,9 @@ namespace Task2Test_TP
         private Purchase Purchase2;
         private Purchase Purchase3;
         private PurchaseRecord PurchaseRecord;
+        private XmlSerialization XmlSerialization;
 
-        public XmlFileTest()
+        public XmlSerializationTest()
         {
             this.Book1 = new Book("Uncle Tom's Cabin", "Harriet Beecher Stowe", CoverType.Paperback, "Mystery");
             this.Book2 = new Book("Brainwalker", "Robyn Mundell", CoverType.Other, "Horror");
@@ -34,13 +33,14 @@ namespace Task2Test_TP
             this.Purchase2 = new Purchase(Adam, new Book[] { Book3 });
             this.Purchase3 = new Purchase(Maciej, new Book[] { Book4, Book5 });
             this.PurchaseRecord = new PurchaseRecord(new Purchase[] { Purchase1, Purchase2, Purchase3 });
+            this.XmlSerialization = new XmlSerialization();
         }
 
         [TestMethod]
         public void SerializationAndDeserializationXmlFileTest()
         {
-            XmlFile.PurchasesToXmlFile(PurchaseRecord, "..\\..\\..\\..\\TestResults\\test.xml");
-            PurchaseRecord purchaseRecord = XmlFile.XmlFileToPurchase("..\\..\\..\\..\\testresults\\test.xml");
+            XmlSerialization.Serialize(PurchaseRecord, "..\\..\\..\\..\\TestResults\\test.xml");
+            PurchaseRecord purchaseRecord = XmlSerialization.Deserialize("..\\..\\..\\..\\testresults\\test.xml");
             Assert.IsNotNull(purchaseRecord);
             Assert.AreEqual(PurchaseRecord, purchaseRecord);
             Assert.AreEqual(Purchase1, purchaseRecord.Purchases[0]);

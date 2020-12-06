@@ -63,5 +63,17 @@ namespace Task2_TP.ObjectModel
             return purchaseEqual &&
                    PurchaseRecordId.Equals(purchaseRecord.PurchaseRecordId);
         }
+
+        public override string ToString()
+        {
+            string result = "PurchaseRecord: \n" +
+                " " + PurchaseRecordId + "\n";
+            foreach (Purchase purchase in Purchases)
+            {
+                result += purchase + "\n";
+            }
+
+            return result;
+        }
     }
 }

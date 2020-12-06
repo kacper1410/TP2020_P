@@ -1,12 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 using Task2_TP.ObjectModel;
 using Task2_TP;
 using System.IO;
-using System.Diagnostics;
 
 namespace Task2Tests_TP
 {

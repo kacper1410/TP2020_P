@@ -5,17 +5,17 @@ using Task2_TP.ObjectModel;
 
 namespace Task2_TP
 {
-    public static class XmlFile
+    public class XmlSerialization : ISerialization
     {
-        public static void PurchasesToXmlFile(PurchaseRecord purchase, string path)
+        public void Serialize(PurchaseRecord purchaseRecord, string path)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(PurchaseRecord));
             TextWriter writer = new StreamWriter(path);
-            xmlSerializer.Serialize(writer, purchase);
+            xmlSerializer.Serialize(writer, purchaseRecord);
             writer.Close();
         }
 
-        public static PurchaseRecord XmlFileToPurchase(string path)
+        public PurchaseRecord Deserialize(string path)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(PurchaseRecord));
             PurchaseRecord purchase = null;

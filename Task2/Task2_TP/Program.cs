@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.Serialization;
 using Task2_TP.ObjectModel;
 
 namespace Task2_TP
@@ -9,57 +7,59 @@ namespace Task2_TP
     {
         static void Main(string[] args)
         {
-            Book book1 = new Book("Uncle Tom's Cabin", "Harriet Beecher Stowe", CoverType.Paperback, "Mystery");
-            Book book2 = new Book("Brainwalker", "Robyn Mundell", CoverType.Other, "Horror");
-            Book book3 = new Book("Inferno", "Dante Alighieri", CoverType.HardcoverCaseWrap, "Science");
-            Book book4 = new Book("The Shadow Girl", "Robyn Mundell", CoverType.HardcoverDustJacket, "Guide");
-            Book book5 = new Book("Schindler's List", "Thomas Keneally", CoverType.Paperback, "History");
-            Client adam = new Client("Adam", "Kowalski", 28);
-            Client maciej = new Client("Maciej", "Jankowski", 21);
-            Purchase purchase1 = new Purchase(adam, new Book[] { book1, book2 });
-            Purchase purchase2 = new Purchase(adam, new Book[] { book4 });
-            Purchase purchase3 = new Purchase(maciej, new Book[] { book3, book5 });
+            int choose;
+            int method;
+            string path;
+            ISerialization serialization;
+            PurchaseRecord purchaseRecord;
 
-            PurchaseRecord purchaseRecord = new PurchaseRecord(new Purchase[] { purchase3, purchase2, purchase1 });
+            Console.WriteLine("***MENU***");
+            Console.WriteLine("Choose method");
+            Console.WriteLine("[1] XML");
+            Console.WriteLine("[2] Custom formatter");
+            method = Console.Read() - 48;
 
-            Formatter formatter = new CustomFormatter();
-
-            String path = "..\\..\\..\\..\\TestResults\\testCustomSerialization.xml";
-            using (Stream stream = new FileStream(path, FileMode.Create))
+            switch (method)
             {
-                formatter.Serialize(stream, purchaseRecord);
+                case 1:
+                    serialization = new XmlSerialization();
+                    break;
+                case 2:
+                    serialization = new CustomSerialization();
+                    break;
+                default:
+                    Console.WriteLine("Wrong option");
+                    return;
             }
 
-            using (Stream stream = new FileStream(path, FileMode.Open))
+            Console.WriteLine("Write path");
+            Console.ReadLine();
+            path = Console.ReadLine();
+
+            Console.WriteLine("[1] Serialize");
+            Console.WriteLine("[2] Deserialize");
+            choose = Console.Read() - 48;
+            try
             {
-                formatter.Deserialize(stream);
+                switch (choose)
+                {
+                    case 1:
+                        purchaseRecord = PurchaseRecordFiller.GetDefaultPurchaseRecord();
+                        serialization.Serialize(purchaseRecord, path);
+                        break;
+                    case 2:
+                        purchaseRecord = serialization.Deserialize(path);
+                        Console.WriteLine(purchaseRecord.ToString());
+                        break;
+                    default:
+                        Console.WriteLine("Wrong option");
+                        return;
+                }
+            } 
+            catch (Exception e)
+            {
+                Console.Write("Blad serializacji");
             }
-
-            //SerializationInfo serializationInfo = new SerializationInfo(purchaseRecord.GetType(), new FormatterConverter());
-            //StreamingContext streamingContext = new StreamingContext(StreamingContextStates.File);
-            //purchaseRecord.GetObjectData(serializationInfo, streamingContext);
-            //foreach (SerializationEntry item in serializationInfo)
-            //{
-            //    Console.WriteLine(item.Name + item.Value);
-            //}
-
-
-            //int choose;
-            //Console.WriteLine("***MENU***");
-            //Console.WriteLine("[1] Read");
-            //Console.WriteLine("[2] Write");
-            //choose = Console.Read();
-
-            //switch (choose)
-            //{
-            //    case 1:
-            //        break;
-            //    case 2:
-            //        break;
-            //    default:
-            //        Console.WriteLine("Wrong option");
-            //        break;
-            //}
         }
     }
 }
