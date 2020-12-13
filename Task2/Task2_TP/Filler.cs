@@ -2,9 +2,9 @@
 
 namespace Task2_TP
 {
-    public class PurchaseRecordFiller
+    public class Filler
     {
-        public static PurchaseRecord GetDefaultPurchaseRecord()
+        public static PurchaseRecord GetDefaultClass()
         {
             Book book1 = new Book("Uncle Tom's Cabin", "Harriet Beecher Stowe", CoverType.Paperback, "Mystery");
             Book book2 = new Book("Brainwalker", "Robyn Mundell", CoverType.Other, "Horror");

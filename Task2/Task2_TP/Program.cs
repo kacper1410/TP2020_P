@@ -11,7 +11,7 @@ namespace Task2_TP
             int method;
             string path;
             ISerialization serialization;
-            PurchaseRecord purchaseRecord;
+            A a;
 
             Console.WriteLine("***MENU***");
             Console.WriteLine("Choose method");
@@ -44,12 +44,12 @@ namespace Task2_TP
                 switch (choose)
                 {
                     case 1:
-                        purchaseRecord = PurchaseRecordFiller.GetDefaultPurchaseRecord();
-                        serialization.Serialize(purchaseRecord, path);
+                        a = Filler.GetDefaultClass();
+                        serialization.Serialize(a, path);
                         break;
                     case 2:
-                        purchaseRecord = serialization.Deserialize(path);
-                        Console.WriteLine(purchaseRecord.ToString());
+                        a = serialization.Deserialize(path);
+                        Console.WriteLine(a.ToString());
                         break;
                     default:
                         Console.WriteLine("Wrong option");
