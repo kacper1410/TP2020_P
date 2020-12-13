@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace Task2_TP.ObjectModel
 {
@@ -25,6 +27,18 @@ namespace Task2_TP.ObjectModel
         {
             info.AddValue("B", B);
             info.AddValue("AField", AField);
+        }
+
+        public void ReadXml()
+        {
+            B.C.A = this;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is A a &&
+                   EqualityComparer<B>.Default.Equals(B, a.B) &&
+                   AField == a.AField;
         }
     }
 }

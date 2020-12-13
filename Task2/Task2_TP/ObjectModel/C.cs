@@ -1,9 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Task2_TP.ObjectModel
 {
     public class C : ISerializable
     {
+        [XmlIgnore]
         public A A { get; set; }
         public int CField { get; set; }
 
@@ -25,6 +28,12 @@ namespace Task2_TP.ObjectModel
         {
             A = (A)info.GetValue("A", typeof(A));
             CField = info.GetInt32("CField");
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is C c &&
+                   CField == c.CField && A.AField == c.A.AField;
         }
     }
 }

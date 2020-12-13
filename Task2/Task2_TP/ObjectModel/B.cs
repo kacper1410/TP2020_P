@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Task2_TP.ObjectModel
 {
@@ -25,6 +26,13 @@ namespace Task2_TP.ObjectModel
         {
             C = (C)info.GetValue("C", typeof(C));
             BField = info.GetInt32("BField");
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is B b &&
+                   EqualityComparer<C>.Default.Equals(C, b.C) &&
+                   BField == b.BField;
         }
     }
 }
