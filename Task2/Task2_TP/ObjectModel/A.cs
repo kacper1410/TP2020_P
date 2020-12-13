@@ -17,7 +17,7 @@ namespace Task2_TP.ObjectModel
             AField = aField;
         }
 
-        public A(SerializationInfo info)
+        public A(SerializationInfo info, StreamingContext context)
         {
             B = (B)info.GetValue("B", typeof(B));
             AField = info.GetInt32("AField");

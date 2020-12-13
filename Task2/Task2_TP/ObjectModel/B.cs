@@ -18,14 +18,14 @@ namespace Task2_TP.ObjectModel
 
         public B(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("C", C);
-            info.AddValue("BField", BField);
+            C = (C)info.GetValue("C", typeof(C));
+            BField = info.GetInt32("BField");
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            C = (C)info.GetValue("C", typeof(C));
-            BField = info.GetInt32("BField");
+            info.AddValue("C", C);
+            info.AddValue("BField", BField);
         }
 
         public override bool Equals(object obj)
