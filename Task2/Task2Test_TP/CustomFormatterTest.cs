@@ -37,7 +37,7 @@ namespace Task2Tests_TP
             this.Purchase2 = new Purchase(Adam, new Book[] { Book3 });
             this.Purchase3 = new Purchase(Maciej, new Book[] { Book4, Book5 });
             this.PurchaseRecord = new PurchaseRecord(new Purchase[] { Purchase1, Purchase2, Purchase3 });
-            this.Formatter = new CustomFormatter();
+            this.Formatter = new CustomSerialization();
             this.Path = "..\\..\\..\\..\\TestResults\\testCustomSerialization.xml";
         }
 
