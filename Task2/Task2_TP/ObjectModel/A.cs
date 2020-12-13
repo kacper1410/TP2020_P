@@ -10,7 +10,7 @@ namespace Task2_TP.ObjectModel
 
         public A() { }
 
-        public A(B b, AField aField)
+        public A(B b, int aField)
         {
             B = b;
             AField = aField;

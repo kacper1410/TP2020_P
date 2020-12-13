@@ -1,12 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Task2_TP.ObjectModel
 {
-    class B
+    public class B : ISerializable
     {
         public C C { get; set; }
         public int BField { get; set; }
+
+        public B() { }
+
+        public B(C c, int bField)
+        {
+            C= c;
+            BField = bField;
+        }
+
+        public B(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("C", C);
+            info.AddValue("BField", BField);
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            C = (C)info.GetValue("C", typeof(C));
+            BField = info.GetInt32("BField");
+        }
     }
 }
