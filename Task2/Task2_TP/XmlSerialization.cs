@@ -7,23 +7,23 @@ namespace Task2_TP
 {
     public class XmlSerialization : ISerialization
     {
-        public void Serialize(PurchaseRecord purchaseRecord, string path)
+        public void Serialize(A purchaseRecord, string path)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(PurchaseRecord));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(A));
             TextWriter writer = new StreamWriter(path);
             xmlSerializer.Serialize(writer, purchaseRecord);
             writer.Close();
         }
 
-        public PurchaseRecord Deserialize(string path)
+        public A Deserialize(string path)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(PurchaseRecord));
-            PurchaseRecord purchase = null;
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(A));
+            A purchase = null;
 
             FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
             using (XmlReader reader = XmlReader.Create(fileStream))
             {
-                purchase = (PurchaseRecord)xmlSerializer.Deserialize(reader);
+                purchase = (A)xmlSerializer.Deserialize(reader);
             }
             return purchase;
         }

@@ -9,15 +9,15 @@ namespace Task2_TP
 {
     public class CustomSerialization : Formatter, ISerialization
     {
-        public PurchaseRecord Deserialize(string path)
+        public A Deserialize(string path)
         {
             using (Stream stream = new FileStream(path, FileMode.Open))
             {
-                return (PurchaseRecord)Deserialize(stream);
+                return (A)Deserialize(stream);
             }
         }
 
-        public void Serialize(PurchaseRecord purchaseRecord, string path)
+        public void Serialize(A purchaseRecord, string path)
         {
             using (Stream stream = new FileStream(path, FileMode.Create))
             {
@@ -29,29 +29,36 @@ namespace Task2_TP
 
         public override void Serialize(Stream serializationStream, object graph)
         {
-            ISerializable serializable = (ISerializable)graph;
-            SerializationInfo serializationInfo = new SerializationInfo(graph.GetType(), new FormatterConverter());
-            StreamingContext streamingContext = new StreamingContext(StreamingContextStates.File);
-            serializable.GetObjectData(serializationInfo, streamingContext);
-            foreach (SerializationEntry item in serializationInfo)
+            if (graph is ISerializable serializable)
             {
-                this.WriteMember(item.Name, item.Value);
-            }
-            using (StreamWriter writer = new StreamWriter(serializationStream))
-            {
-                foreach (XElement element in values)
+                SerializationInfo serializationInfo = new SerializationInfo(graph.GetType(), new FormatterConverter());
+                StreamingContext streamingContext = new StreamingContext(StreamingContextStates.File);
+                serializable.GetObjectData(serializationInfo, streamingContext);
+                foreach (SerializationEntry item in serializationInfo)
                 {
-                    writer.Write($"{element.Name} {element.Value}\n");
+                    this.WriteMember(item.Name, item.Value);
                 }
+                using (StreamWriter writer = new StreamWriter(serializationStream))
+                {
+                    foreach (XElement element in values)
+                    {
+                        writer.Write($"{element.Name} {element.Value}\n");
+                    }
+                }
+            } 
+            else
+            {
+                throw new Exception("Graph does not implement ISerializable");
             }
+
         }
 
         public override object Deserialize(Stream serializationStream)
         {
-            PurchaseRecord purchaseRecord;
+            A purchaseRecord;
             using (StreamReader reader = new StreamReader(serializationStream))
             {
-                SerializationInfo serializationInfo = new SerializationInfo(typeof(PurchaseRecord), new FormatterConverter());
+                SerializationInfo serializationInfo = new SerializationInfo(typeof(A), new FormatterConverter());
                 string line = reader.ReadLine();
                 while (line != null)
                 {
@@ -66,7 +73,7 @@ namespace Task2_TP
                     serializationInfo.AddValue(splitLine[0] + "_", splitLine[1]);
                     line = reader.ReadLine();
                 }
-                purchaseRecord = new PurchaseRecord(serializationInfo);
+                purchaseRecord = new A(serializationInfo);
             }
 
             return purchaseRecord;
