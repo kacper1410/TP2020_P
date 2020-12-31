@@ -13,13 +13,12 @@ namespace Task3
     {
         public void method()
         {
-
             DataClasses1DataContext dataClasses1 = new DataClasses1DataContext();
-            //IEnumerable<string> names = from product in dataClasses1.Products
-            //                            where product.ProductNumber == "112"
-            //                            select product.Name;
+            IEnumerable<string> names = from product in dataClasses1.Products
+                                        where product.ProductNumber == "112"
+                                        select product.Name;
 
-            IEnumerable<string> names = dataClasses1.Products.Where(p => p.ProductNumber == "112").Select(p => p.Name);
+            //IEnumerable<string> names = dataClasses1.Products.Where(p => p.ProductNumber == "112").Select(p => p.Name);
 
             Product product1 = new Product();
             product1.Name = "xd";
