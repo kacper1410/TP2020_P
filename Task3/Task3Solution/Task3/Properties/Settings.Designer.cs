@@ -26,11 +26,22 @@ namespace Task3.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\AdventureWork" +
-            "s2016_Data.mdf;Integrated Security=True;Connect Timeout=30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\..\\AdventureW" +
+            "orks2016_Data.mdf;Integrated Security=True;Connect Timeout=30")]
         public string AdventureWorks2016_DataConnectionString {
             get {
                 return ((string)(this["AdventureWorks2016_DataConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-GQLE6DB\\TP_DB16;Initial Catalog=AdventureWorks2016;Integrated" +
+            " Security=True")]
+        public string AdventureWorks2016ConnectionString {
+            get {
+                return ((string)(this["AdventureWorks2016ConnectionString"]));
             }
         }
     }

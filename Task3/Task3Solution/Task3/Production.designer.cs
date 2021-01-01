@@ -22,8 +22,8 @@ namespace Task3
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="AdventureWorks2016_Data")]
-	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="AdventureWorks2016")]
+	public partial class ProductionDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -33,9 +33,9 @@ namespace Task3
     partial void InsertBillOfMaterial(BillOfMaterial instance);
     partial void UpdateBillOfMaterial(BillOfMaterial instance);
     partial void DeleteBillOfMaterial(BillOfMaterial instance);
-    partial void InsertWorkOrder(WorkOrder instance);
-    partial void UpdateWorkOrder(WorkOrder instance);
-    partial void DeleteWorkOrder(WorkOrder instance);
+    partial void InsertWorkOrderRouting(WorkOrderRouting instance);
+    partial void UpdateWorkOrderRouting(WorkOrderRouting instance);
+    partial void DeleteWorkOrderRouting(WorkOrderRouting instance);
     partial void InsertCulture(Culture instance);
     partial void UpdateCulture(Culture instance);
     partial void DeleteCulture(Culture instance);
@@ -96,36 +96,36 @@ namespace Task3
     partial void InsertUnitMeasure(UnitMeasure instance);
     partial void UpdateUnitMeasure(UnitMeasure instance);
     partial void DeleteUnitMeasure(UnitMeasure instance);
-    partial void InsertWorkOrderRouting(WorkOrderRouting instance);
-    partial void UpdateWorkOrderRouting(WorkOrderRouting instance);
-    partial void DeleteWorkOrderRouting(WorkOrderRouting instance);
+    partial void InsertWorkOrder(WorkOrder instance);
+    partial void UpdateWorkOrder(WorkOrder instance);
+    partial void DeleteWorkOrder(WorkOrder instance);
     #endregion
 		
-		public DataClasses1DataContext() : 
-				base(global::Task3.Properties.Settings.Default.AdventureWorks2016_DataConnectionString, mappingSource)
+		public ProductionDataContext() : 
+				base(global::Task3.Properties.Settings.Default.AdventureWorks2016ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection) : 
+		public ProductionDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
+		public ProductionDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public ProductionDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public ProductionDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -139,11 +139,11 @@ namespace Task3
 			}
 		}
 		
-		public System.Data.Linq.Table<WorkOrder> WorkOrders
+		public System.Data.Linq.Table<WorkOrderRouting> WorkOrderRoutings
 		{
 			get
 			{
-				return this.GetTable<WorkOrder>();
+				return this.GetTable<WorkOrderRouting>();
 			}
 		}
 		
@@ -307,11 +307,11 @@ namespace Task3
 			}
 		}
 		
-		public System.Data.Linq.Table<WorkOrderRouting> WorkOrderRoutings
+		public System.Data.Linq.Table<WorkOrder> WorkOrders
 		{
 			get
 			{
-				return this.GetTable<WorkOrderRouting>();
+				return this.GetTable<WorkOrder>();
 			}
 		}
 	}
@@ -693,8 +693,8 @@ namespace Task3
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="Production.WorkOrder")]
-	public partial class WorkOrder : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Production.WorkOrderRouting")]
+	public partial class WorkOrderRouting : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -703,27 +703,29 @@ namespace Task3
 		
 		private int _ProductID;
 		
-		private int _OrderQty;
+		private short _OperationSequence;
 		
-		private int _StockedQty;
+		private short _LocationID;
 		
-		private short _ScrappedQty;
+		private System.DateTime _ScheduledStartDate;
 		
-		private System.DateTime _StartDate;
+		private System.DateTime _ScheduledEndDate;
 		
-		private System.Nullable<System.DateTime> _EndDate;
+		private System.Nullable<System.DateTime> _ActualStartDate;
 		
-		private System.DateTime _DueDate;
+		private System.Nullable<System.DateTime> _ActualEndDate;
 		
-		private System.Nullable<short> _ScrapReasonID;
+		private System.Nullable<decimal> _ActualResourceHrs;
+		
+		private decimal _PlannedCost;
+		
+		private System.Nullable<decimal> _ActualCost;
 		
 		private System.DateTime _ModifiedDate;
 		
-		private EntitySet<WorkOrderRouting> _WorkOrderRoutings;
+		private EntityRef<Location> _Location;
 		
-		private EntityRef<Product> _Product;
-		
-		private EntityRef<ScrapReason> _ScrapReason;
+		private EntityRef<WorkOrder> _WorkOrder;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -733,33 +735,36 @@ namespace Task3
     partial void OnWorkOrderIDChanged();
     partial void OnProductIDChanging(int value);
     partial void OnProductIDChanged();
-    partial void OnOrderQtyChanging(int value);
-    partial void OnOrderQtyChanged();
-    partial void OnStockedQtyChanging(int value);
-    partial void OnStockedQtyChanged();
-    partial void OnScrappedQtyChanging(short value);
-    partial void OnScrappedQtyChanged();
-    partial void OnStartDateChanging(System.DateTime value);
-    partial void OnStartDateChanged();
-    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnEndDateChanged();
-    partial void OnDueDateChanging(System.DateTime value);
-    partial void OnDueDateChanged();
-    partial void OnScrapReasonIDChanging(System.Nullable<short> value);
-    partial void OnScrapReasonIDChanged();
+    partial void OnOperationSequenceChanging(short value);
+    partial void OnOperationSequenceChanged();
+    partial void OnLocationIDChanging(short value);
+    partial void OnLocationIDChanged();
+    partial void OnScheduledStartDateChanging(System.DateTime value);
+    partial void OnScheduledStartDateChanged();
+    partial void OnScheduledEndDateChanging(System.DateTime value);
+    partial void OnScheduledEndDateChanged();
+    partial void OnActualStartDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnActualStartDateChanged();
+    partial void OnActualEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnActualEndDateChanged();
+    partial void OnActualResourceHrsChanging(System.Nullable<decimal> value);
+    partial void OnActualResourceHrsChanged();
+    partial void OnPlannedCostChanging(decimal value);
+    partial void OnPlannedCostChanged();
+    partial void OnActualCostChanging(System.Nullable<decimal> value);
+    partial void OnActualCostChanged();
     partial void OnModifiedDateChanging(System.DateTime value);
     partial void OnModifiedDateChanged();
     #endregion
 		
-		public WorkOrder()
+		public WorkOrderRouting()
 		{
-			this._WorkOrderRoutings = new EntitySet<WorkOrderRouting>(new Action<WorkOrderRouting>(this.attach_WorkOrderRoutings), new Action<WorkOrderRouting>(this.detach_WorkOrderRoutings));
-			this._Product = default(EntityRef<Product>);
-			this._ScrapReason = default(EntityRef<ScrapReason>);
+			this._Location = default(EntityRef<Location>);
+			this._WorkOrder = default(EntityRef<WorkOrder>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkOrderID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkOrderID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int WorkOrderID
 		{
 			get
@@ -770,6 +775,10 @@ namespace Task3
 			{
 				if ((this._WorkOrderID != value))
 				{
+					if (this._WorkOrder.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnWorkOrderIDChanging(value);
 					this.SendPropertyChanging();
 					this._WorkOrderID = value;
@@ -779,7 +788,7 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", DbType="Int NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", DbType="Int NOT NULL", IsPrimaryKey=true)]
 		public int ProductID
 		{
 			get
@@ -790,10 +799,6 @@ namespace Task3
 			{
 				if ((this._ProductID != value))
 				{
-					if (this._Product.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnProductIDChanging(value);
 					this.SendPropertyChanging();
 					this._ProductID = value;
@@ -803,146 +808,186 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderQty", DbType="Int NOT NULL")]
-		public int OrderQty
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperationSequence", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short OperationSequence
 		{
 			get
 			{
-				return this._OrderQty;
+				return this._OperationSequence;
 			}
 			set
 			{
-				if ((this._OrderQty != value))
+				if ((this._OperationSequence != value))
 				{
-					this.OnOrderQtyChanging(value);
+					this.OnOperationSequenceChanging(value);
 					this.SendPropertyChanging();
-					this._OrderQty = value;
-					this.SendPropertyChanged("OrderQty");
-					this.OnOrderQtyChanged();
+					this._OperationSequence = value;
+					this.SendPropertyChanged("OperationSequence");
+					this.OnOperationSequenceChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockedQty", AutoSync=AutoSync.Always, DbType="Int NOT NULL", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public int StockedQty
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationID", DbType="SmallInt NOT NULL")]
+		public short LocationID
 		{
 			get
 			{
-				return this._StockedQty;
+				return this._LocationID;
 			}
 			set
 			{
-				if ((this._StockedQty != value))
+				if ((this._LocationID != value))
 				{
-					this.OnStockedQtyChanging(value);
-					this.SendPropertyChanging();
-					this._StockedQty = value;
-					this.SendPropertyChanged("StockedQty");
-					this.OnStockedQtyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScrappedQty", DbType="SmallInt NOT NULL")]
-		public short ScrappedQty
-		{
-			get
-			{
-				return this._ScrappedQty;
-			}
-			set
-			{
-				if ((this._ScrappedQty != value))
-				{
-					this.OnScrappedQtyChanging(value);
-					this.SendPropertyChanging();
-					this._ScrappedQty = value;
-					this.SendPropertyChanged("ScrappedQty");
-					this.OnScrappedQtyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime NOT NULL")]
-		public System.DateTime StartDate
-		{
-			get
-			{
-				return this._StartDate;
-			}
-			set
-			{
-				if ((this._StartDate != value))
-				{
-					this.OnStartDateChanging(value);
-					this.SendPropertyChanging();
-					this._StartDate = value;
-					this.SendPropertyChanged("StartDate");
-					this.OnStartDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> EndDate
-		{
-			get
-			{
-				return this._EndDate;
-			}
-			set
-			{
-				if ((this._EndDate != value))
-				{
-					this.OnEndDateChanging(value);
-					this.SendPropertyChanging();
-					this._EndDate = value;
-					this.SendPropertyChanged("EndDate");
-					this.OnEndDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DueDate", DbType="DateTime NOT NULL")]
-		public System.DateTime DueDate
-		{
-			get
-			{
-				return this._DueDate;
-			}
-			set
-			{
-				if ((this._DueDate != value))
-				{
-					this.OnDueDateChanging(value);
-					this.SendPropertyChanging();
-					this._DueDate = value;
-					this.SendPropertyChanged("DueDate");
-					this.OnDueDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScrapReasonID", DbType="SmallInt")]
-		public System.Nullable<short> ScrapReasonID
-		{
-			get
-			{
-				return this._ScrapReasonID;
-			}
-			set
-			{
-				if ((this._ScrapReasonID != value))
-				{
-					if (this._ScrapReason.HasLoadedOrAssignedValue)
+					if (this._Location.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnScrapReasonIDChanging(value);
+					this.OnLocationIDChanging(value);
 					this.SendPropertyChanging();
-					this._ScrapReasonID = value;
-					this.SendPropertyChanged("ScrapReasonID");
-					this.OnScrapReasonIDChanged();
+					this._LocationID = value;
+					this.SendPropertyChanged("LocationID");
+					this.OnLocationIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScheduledStartDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ScheduledStartDate
+		{
+			get
+			{
+				return this._ScheduledStartDate;
+			}
+			set
+			{
+				if ((this._ScheduledStartDate != value))
+				{
+					this.OnScheduledStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._ScheduledStartDate = value;
+					this.SendPropertyChanged("ScheduledStartDate");
+					this.OnScheduledStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScheduledEndDate", DbType="DateTime NOT NULL")]
+		public System.DateTime ScheduledEndDate
+		{
+			get
+			{
+				return this._ScheduledEndDate;
+			}
+			set
+			{
+				if ((this._ScheduledEndDate != value))
+				{
+					this.OnScheduledEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._ScheduledEndDate = value;
+					this.SendPropertyChanged("ScheduledEndDate");
+					this.OnScheduledEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualStartDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ActualStartDate
+		{
+			get
+			{
+				return this._ActualStartDate;
+			}
+			set
+			{
+				if ((this._ActualStartDate != value))
+				{
+					this.OnActualStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._ActualStartDate = value;
+					this.SendPropertyChanged("ActualStartDate");
+					this.OnActualStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualEndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ActualEndDate
+		{
+			get
+			{
+				return this._ActualEndDate;
+			}
+			set
+			{
+				if ((this._ActualEndDate != value))
+				{
+					this.OnActualEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._ActualEndDate = value;
+					this.SendPropertyChanged("ActualEndDate");
+					this.OnActualEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualResourceHrs", DbType="Decimal(9,4)")]
+		public System.Nullable<decimal> ActualResourceHrs
+		{
+			get
+			{
+				return this._ActualResourceHrs;
+			}
+			set
+			{
+				if ((this._ActualResourceHrs != value))
+				{
+					this.OnActualResourceHrsChanging(value);
+					this.SendPropertyChanging();
+					this._ActualResourceHrs = value;
+					this.SendPropertyChanged("ActualResourceHrs");
+					this.OnActualResourceHrsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlannedCost", DbType="Money NOT NULL")]
+		public decimal PlannedCost
+		{
+			get
+			{
+				return this._PlannedCost;
+			}
+			set
+			{
+				if ((this._PlannedCost != value))
+				{
+					this.OnPlannedCostChanging(value);
+					this.SendPropertyChanging();
+					this._PlannedCost = value;
+					this.SendPropertyChanged("PlannedCost");
+					this.OnPlannedCostChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualCost", DbType="Money")]
+		public System.Nullable<decimal> ActualCost
+		{
+			get
+			{
+				return this._ActualCost;
+			}
+			set
+			{
+				if ((this._ActualCost != value))
+				{
+					this.OnActualCostChanging(value);
+					this.SendPropertyChanging();
+					this._ActualCost = value;
+					this.SendPropertyChanged("ActualCost");
+					this.OnActualCostChanged();
 				}
 			}
 		}
@@ -967,83 +1012,70 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WorkOrder_WorkOrderRouting", Storage="_WorkOrderRoutings", ThisKey="WorkOrderID", OtherKey="WorkOrderID")]
-		public EntitySet<WorkOrderRouting> WorkOrderRoutings
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Location_WorkOrderRouting", Storage="_Location", ThisKey="LocationID", OtherKey="LocationID", IsForeignKey=true)]
+		public Location Location
 		{
 			get
 			{
-				return this._WorkOrderRoutings;
+				return this._Location.Entity;
 			}
 			set
 			{
-				this._WorkOrderRoutings.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_WorkOrder", Storage="_Product", ThisKey="ProductID", OtherKey="ProductID", IsForeignKey=true)]
-		public Product Product
-		{
-			get
-			{
-				return this._Product.Entity;
-			}
-			set
-			{
-				Product previousValue = this._Product.Entity;
+				Location previousValue = this._Location.Entity;
 				if (((previousValue != value) 
-							|| (this._Product.HasLoadedOrAssignedValue == false)))
+							|| (this._Location.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Product.Entity = null;
-						previousValue.WorkOrders.Remove(this);
+						this._Location.Entity = null;
+						previousValue.WorkOrderRoutings.Remove(this);
 					}
-					this._Product.Entity = value;
+					this._Location.Entity = value;
 					if ((value != null))
 					{
-						value.WorkOrders.Add(this);
-						this._ProductID = value.ProductID;
+						value.WorkOrderRoutings.Add(this);
+						this._LocationID = value.LocationID;
 					}
 					else
 					{
-						this._ProductID = default(int);
+						this._LocationID = default(short);
 					}
-					this.SendPropertyChanged("Product");
+					this.SendPropertyChanged("Location");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ScrapReason_WorkOrder", Storage="_ScrapReason", ThisKey="ScrapReasonID", OtherKey="ScrapReasonID", IsForeignKey=true)]
-		public ScrapReason ScrapReason
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WorkOrder_WorkOrderRouting", Storage="_WorkOrder", ThisKey="WorkOrderID", OtherKey="WorkOrderID", IsForeignKey=true)]
+		public WorkOrder WorkOrder
 		{
 			get
 			{
-				return this._ScrapReason.Entity;
+				return this._WorkOrder.Entity;
 			}
 			set
 			{
-				ScrapReason previousValue = this._ScrapReason.Entity;
+				WorkOrder previousValue = this._WorkOrder.Entity;
 				if (((previousValue != value) 
-							|| (this._ScrapReason.HasLoadedOrAssignedValue == false)))
+							|| (this._WorkOrder.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._ScrapReason.Entity = null;
-						previousValue.WorkOrders.Remove(this);
+						this._WorkOrder.Entity = null;
+						previousValue.WorkOrderRoutings.Remove(this);
 					}
-					this._ScrapReason.Entity = value;
+					this._WorkOrder.Entity = value;
 					if ((value != null))
 					{
-						value.WorkOrders.Add(this);
-						this._ScrapReasonID = value.ScrapReasonID;
+						value.WorkOrderRoutings.Add(this);
+						this._WorkOrderID = value.WorkOrderID;
 					}
 					else
 					{
-						this._ScrapReasonID = default(Nullable<short>);
+						this._WorkOrderID = default(int);
 					}
-					this.SendPropertyChanged("ScrapReason");
+					this.SendPropertyChanged("WorkOrder");
 				}
 			}
 		}
@@ -1066,18 +1098,6 @@ namespace Task3
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_WorkOrderRoutings(WorkOrderRouting entity)
-		{
-			this.SendPropertyChanging();
-			entity.WorkOrder = this;
-		}
-		
-		private void detach_WorkOrderRoutings(WorkOrderRouting entity)
-		{
-			this.SendPropertyChanging();
-			entity.WorkOrder = null;
 		}
 	}
 	
@@ -1373,9 +1393,9 @@ namespace Task3
 		
 		private System.DateTime _ModifiedDate;
 		
-		private EntitySet<ProductInventory> _ProductInventories;
-		
 		private EntitySet<WorkOrderRouting> _WorkOrderRoutings;
+		
+		private EntitySet<ProductInventory> _ProductInventories;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1395,8 +1415,8 @@ namespace Task3
 		
 		public Location()
 		{
-			this._ProductInventories = new EntitySet<ProductInventory>(new Action<ProductInventory>(this.attach_ProductInventories), new Action<ProductInventory>(this.detach_ProductInventories));
 			this._WorkOrderRoutings = new EntitySet<WorkOrderRouting>(new Action<WorkOrderRouting>(this.attach_WorkOrderRoutings), new Action<WorkOrderRouting>(this.detach_WorkOrderRoutings));
+			this._ProductInventories = new EntitySet<ProductInventory>(new Action<ProductInventory>(this.attach_ProductInventories), new Action<ProductInventory>(this.detach_ProductInventories));
 			OnCreated();
 		}
 		
@@ -1500,19 +1520,6 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Location_ProductInventory", Storage="_ProductInventories", ThisKey="LocationID", OtherKey="LocationID")]
-		public EntitySet<ProductInventory> ProductInventories
-		{
-			get
-			{
-				return this._ProductInventories;
-			}
-			set
-			{
-				this._ProductInventories.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Location_WorkOrderRouting", Storage="_WorkOrderRoutings", ThisKey="LocationID", OtherKey="LocationID")]
 		public EntitySet<WorkOrderRouting> WorkOrderRoutings
 		{
@@ -1523,6 +1530,19 @@ namespace Task3
 			set
 			{
 				this._WorkOrderRoutings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Location_ProductInventory", Storage="_ProductInventories", ThisKey="LocationID", OtherKey="LocationID")]
+		public EntitySet<ProductInventory> ProductInventories
+		{
+			get
+			{
+				return this._ProductInventories;
+			}
+			set
+			{
+				this._ProductInventories.Assign(value);
 			}
 		}
 		
@@ -1546,18 +1566,6 @@ namespace Task3
 			}
 		}
 		
-		private void attach_ProductInventories(ProductInventory entity)
-		{
-			this.SendPropertyChanging();
-			entity.Location = this;
-		}
-		
-		private void detach_ProductInventories(ProductInventory entity)
-		{
-			this.SendPropertyChanging();
-			entity.Location = null;
-		}
-		
 		private void attach_WorkOrderRoutings(WorkOrderRouting entity)
 		{
 			this.SendPropertyChanging();
@@ -1565,6 +1573,18 @@ namespace Task3
 		}
 		
 		private void detach_WorkOrderRoutings(WorkOrderRouting entity)
+		{
+			this.SendPropertyChanging();
+			entity.Location = null;
+		}
+		
+		private void attach_ProductInventories(ProductInventory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Location = this;
+		}
+		
+		private void detach_ProductInventories(ProductInventory entity)
 		{
 			this.SendPropertyChanging();
 			entity.Location = null;
@@ -1631,8 +1651,6 @@ namespace Task3
 		
 		private EntitySet<BillOfMaterial> _BillOfMaterials1;
 		
-		private EntitySet<WorkOrder> _WorkOrders;
-		
 		private EntitySet<ProductCostHistory> _ProductCostHistories;
 		
 		private EntitySet<ProductInventory> _ProductInventories;
@@ -1644,6 +1662,8 @@ namespace Task3
 		private EntitySet<ProductReview> _ProductReviews;
 		
 		private EntitySet<TransactionHistory> _TransactionHistories;
+		
+		private EntitySet<WorkOrder> _WorkOrders;
 		
 		private EntityRef<ProductModel> _ProductModel;
 		
@@ -1713,13 +1733,13 @@ namespace Task3
 		{
 			this._BillOfMaterials = new EntitySet<BillOfMaterial>(new Action<BillOfMaterial>(this.attach_BillOfMaterials), new Action<BillOfMaterial>(this.detach_BillOfMaterials));
 			this._BillOfMaterials1 = new EntitySet<BillOfMaterial>(new Action<BillOfMaterial>(this.attach_BillOfMaterials1), new Action<BillOfMaterial>(this.detach_BillOfMaterials1));
-			this._WorkOrders = new EntitySet<WorkOrder>(new Action<WorkOrder>(this.attach_WorkOrders), new Action<WorkOrder>(this.detach_WorkOrders));
 			this._ProductCostHistories = new EntitySet<ProductCostHistory>(new Action<ProductCostHistory>(this.attach_ProductCostHistories), new Action<ProductCostHistory>(this.detach_ProductCostHistories));
 			this._ProductInventories = new EntitySet<ProductInventory>(new Action<ProductInventory>(this.attach_ProductInventories), new Action<ProductInventory>(this.detach_ProductInventories));
 			this._ProductListPriceHistories = new EntitySet<ProductListPriceHistory>(new Action<ProductListPriceHistory>(this.attach_ProductListPriceHistories), new Action<ProductListPriceHistory>(this.detach_ProductListPriceHistories));
 			this._ProductProductPhotos = new EntitySet<ProductProductPhoto>(new Action<ProductProductPhoto>(this.attach_ProductProductPhotos), new Action<ProductProductPhoto>(this.detach_ProductProductPhotos));
 			this._ProductReviews = new EntitySet<ProductReview>(new Action<ProductReview>(this.attach_ProductReviews), new Action<ProductReview>(this.detach_ProductReviews));
 			this._TransactionHistories = new EntitySet<TransactionHistory>(new Action<TransactionHistory>(this.attach_TransactionHistories), new Action<TransactionHistory>(this.detach_TransactionHistories));
+			this._WorkOrders = new EntitySet<WorkOrder>(new Action<WorkOrder>(this.attach_WorkOrders), new Action<WorkOrder>(this.detach_WorkOrders));
 			this._ProductModel = default(EntityRef<ProductModel>);
 			this._ProductSubcategory = default(EntityRef<ProductSubcategory>);
 			this._UnitMeasure = default(EntityRef<UnitMeasure>);
@@ -2269,19 +2289,6 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_WorkOrder", Storage="_WorkOrders", ThisKey="ProductID", OtherKey="ProductID")]
-		public EntitySet<WorkOrder> WorkOrders
-		{
-			get
-			{
-				return this._WorkOrders;
-			}
-			set
-			{
-				this._WorkOrders.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_ProductCostHistory", Storage="_ProductCostHistories", ThisKey="ProductID", OtherKey="ProductID")]
 		public EntitySet<ProductCostHistory> ProductCostHistories
 		{
@@ -2357,6 +2364,19 @@ namespace Task3
 			set
 			{
 				this._TransactionHistories.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_WorkOrder", Storage="_WorkOrders", ThisKey="ProductID", OtherKey="ProductID")]
+		public EntitySet<WorkOrder> WorkOrders
+		{
+			get
+			{
+				return this._WorkOrders;
+			}
+			set
+			{
+				this._WorkOrders.Assign(value);
 			}
 		}
 		
@@ -2540,18 +2560,6 @@ namespace Task3
 			entity.Product1 = null;
 		}
 		
-		private void attach_WorkOrders(WorkOrder entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = this;
-		}
-		
-		private void detach_WorkOrders(WorkOrder entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = null;
-		}
-		
 		private void attach_ProductCostHistories(ProductCostHistory entity)
 		{
 			this.SendPropertyChanging();
@@ -2619,6 +2627,18 @@ namespace Task3
 		}
 		
 		private void detach_TransactionHistories(TransactionHistory entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = null;
+		}
+		
+		private void attach_WorkOrders(WorkOrder entity)
+		{
+			this.SendPropertyChanging();
+			entity.Product = this;
+		}
+		
+		private void detach_WorkOrders(WorkOrder entity)
 		{
 			this.SendPropertyChanging();
 			entity.Product = null;
@@ -6155,8 +6175,8 @@ namespace Task3
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="Production.WorkOrderRouting")]
-	public partial class WorkOrderRouting : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Production.WorkOrder")]
+	public partial class WorkOrder : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -6165,29 +6185,27 @@ namespace Task3
 		
 		private int _ProductID;
 		
-		private short _OperationSequence;
+		private int _OrderQty;
 		
-		private short _LocationID;
+		private int _StockedQty;
 		
-		private System.DateTime _ScheduledStartDate;
+		private short _ScrappedQty;
 		
-		private System.DateTime _ScheduledEndDate;
+		private System.DateTime _StartDate;
 		
-		private System.Nullable<System.DateTime> _ActualStartDate;
+		private System.Nullable<System.DateTime> _EndDate;
 		
-		private System.Nullable<System.DateTime> _ActualEndDate;
+		private System.DateTime _DueDate;
 		
-		private System.Nullable<decimal> _ActualResourceHrs;
-		
-		private decimal _PlannedCost;
-		
-		private System.Nullable<decimal> _ActualCost;
+		private System.Nullable<short> _ScrapReasonID;
 		
 		private System.DateTime _ModifiedDate;
 		
-		private EntityRef<Location> _Location;
+		private EntitySet<WorkOrderRouting> _WorkOrderRoutings;
 		
-		private EntityRef<WorkOrder> _WorkOrder;
+		private EntityRef<Product> _Product;
+		
+		private EntityRef<ScrapReason> _ScrapReason;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -6197,36 +6215,33 @@ namespace Task3
     partial void OnWorkOrderIDChanged();
     partial void OnProductIDChanging(int value);
     partial void OnProductIDChanged();
-    partial void OnOperationSequenceChanging(short value);
-    partial void OnOperationSequenceChanged();
-    partial void OnLocationIDChanging(short value);
-    partial void OnLocationIDChanged();
-    partial void OnScheduledStartDateChanging(System.DateTime value);
-    partial void OnScheduledStartDateChanged();
-    partial void OnScheduledEndDateChanging(System.DateTime value);
-    partial void OnScheduledEndDateChanged();
-    partial void OnActualStartDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnActualStartDateChanged();
-    partial void OnActualEndDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnActualEndDateChanged();
-    partial void OnActualResourceHrsChanging(System.Nullable<decimal> value);
-    partial void OnActualResourceHrsChanged();
-    partial void OnPlannedCostChanging(decimal value);
-    partial void OnPlannedCostChanged();
-    partial void OnActualCostChanging(System.Nullable<decimal> value);
-    partial void OnActualCostChanged();
+    partial void OnOrderQtyChanging(int value);
+    partial void OnOrderQtyChanged();
+    partial void OnStockedQtyChanging(int value);
+    partial void OnStockedQtyChanged();
+    partial void OnScrappedQtyChanging(short value);
+    partial void OnScrappedQtyChanged();
+    partial void OnStartDateChanging(System.DateTime value);
+    partial void OnStartDateChanged();
+    partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnEndDateChanged();
+    partial void OnDueDateChanging(System.DateTime value);
+    partial void OnDueDateChanged();
+    partial void OnScrapReasonIDChanging(System.Nullable<short> value);
+    partial void OnScrapReasonIDChanged();
     partial void OnModifiedDateChanging(System.DateTime value);
     partial void OnModifiedDateChanged();
     #endregion
 		
-		public WorkOrderRouting()
+		public WorkOrder()
 		{
-			this._Location = default(EntityRef<Location>);
-			this._WorkOrder = default(EntityRef<WorkOrder>);
+			this._WorkOrderRoutings = new EntitySet<WorkOrderRouting>(new Action<WorkOrderRouting>(this.attach_WorkOrderRoutings), new Action<WorkOrderRouting>(this.detach_WorkOrderRoutings));
+			this._Product = default(EntityRef<Product>);
+			this._ScrapReason = default(EntityRef<ScrapReason>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkOrderID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WorkOrderID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public int WorkOrderID
 		{
 			get
@@ -6237,10 +6252,6 @@ namespace Task3
 			{
 				if ((this._WorkOrderID != value))
 				{
-					if (this._WorkOrder.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnWorkOrderIDChanging(value);
 					this.SendPropertyChanging();
 					this._WorkOrderID = value;
@@ -6250,7 +6261,7 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductID", DbType="Int NOT NULL")]
 		public int ProductID
 		{
 			get
@@ -6261,6 +6272,10 @@ namespace Task3
 			{
 				if ((this._ProductID != value))
 				{
+					if (this._Product.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnProductIDChanging(value);
 					this.SendPropertyChanging();
 					this._ProductID = value;
@@ -6270,186 +6285,146 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OperationSequence", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
-		public short OperationSequence
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderQty", DbType="Int NOT NULL")]
+		public int OrderQty
 		{
 			get
 			{
-				return this._OperationSequence;
+				return this._OrderQty;
 			}
 			set
 			{
-				if ((this._OperationSequence != value))
+				if ((this._OrderQty != value))
 				{
-					this.OnOperationSequenceChanging(value);
+					this.OnOrderQtyChanging(value);
 					this.SendPropertyChanging();
-					this._OperationSequence = value;
-					this.SendPropertyChanged("OperationSequence");
-					this.OnOperationSequenceChanged();
+					this._OrderQty = value;
+					this.SendPropertyChanged("OrderQty");
+					this.OnOrderQtyChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LocationID", DbType="SmallInt NOT NULL")]
-		public short LocationID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockedQty", AutoSync=AutoSync.Always, DbType="Int NOT NULL", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public int StockedQty
 		{
 			get
 			{
-				return this._LocationID;
+				return this._StockedQty;
 			}
 			set
 			{
-				if ((this._LocationID != value))
+				if ((this._StockedQty != value))
 				{
-					if (this._Location.HasLoadedOrAssignedValue)
+					this.OnStockedQtyChanging(value);
+					this.SendPropertyChanging();
+					this._StockedQty = value;
+					this.SendPropertyChanged("StockedQty");
+					this.OnStockedQtyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScrappedQty", DbType="SmallInt NOT NULL")]
+		public short ScrappedQty
+		{
+			get
+			{
+				return this._ScrappedQty;
+			}
+			set
+			{
+				if ((this._ScrappedQty != value))
+				{
+					this.OnScrappedQtyChanging(value);
+					this.SendPropertyChanging();
+					this._ScrappedQty = value;
+					this.SendPropertyChanged("ScrappedQty");
+					this.OnScrappedQtyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartDate", DbType="DateTime NOT NULL")]
+		public System.DateTime StartDate
+		{
+			get
+			{
+				return this._StartDate;
+			}
+			set
+			{
+				if ((this._StartDate != value))
+				{
+					this.OnStartDateChanging(value);
+					this.SendPropertyChanging();
+					this._StartDate = value;
+					this.SendPropertyChanged("StartDate");
+					this.OnStartDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> EndDate
+		{
+			get
+			{
+				return this._EndDate;
+			}
+			set
+			{
+				if ((this._EndDate != value))
+				{
+					this.OnEndDateChanging(value);
+					this.SendPropertyChanging();
+					this._EndDate = value;
+					this.SendPropertyChanged("EndDate");
+					this.OnEndDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DueDate", DbType="DateTime NOT NULL")]
+		public System.DateTime DueDate
+		{
+			get
+			{
+				return this._DueDate;
+			}
+			set
+			{
+				if ((this._DueDate != value))
+				{
+					this.OnDueDateChanging(value);
+					this.SendPropertyChanging();
+					this._DueDate = value;
+					this.SendPropertyChanged("DueDate");
+					this.OnDueDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScrapReasonID", DbType="SmallInt")]
+		public System.Nullable<short> ScrapReasonID
+		{
+			get
+			{
+				return this._ScrapReasonID;
+			}
+			set
+			{
+				if ((this._ScrapReasonID != value))
+				{
+					if (this._ScrapReason.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnLocationIDChanging(value);
+					this.OnScrapReasonIDChanging(value);
 					this.SendPropertyChanging();
-					this._LocationID = value;
-					this.SendPropertyChanged("LocationID");
-					this.OnLocationIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScheduledStartDate", DbType="DateTime NOT NULL")]
-		public System.DateTime ScheduledStartDate
-		{
-			get
-			{
-				return this._ScheduledStartDate;
-			}
-			set
-			{
-				if ((this._ScheduledStartDate != value))
-				{
-					this.OnScheduledStartDateChanging(value);
-					this.SendPropertyChanging();
-					this._ScheduledStartDate = value;
-					this.SendPropertyChanged("ScheduledStartDate");
-					this.OnScheduledStartDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ScheduledEndDate", DbType="DateTime NOT NULL")]
-		public System.DateTime ScheduledEndDate
-		{
-			get
-			{
-				return this._ScheduledEndDate;
-			}
-			set
-			{
-				if ((this._ScheduledEndDate != value))
-				{
-					this.OnScheduledEndDateChanging(value);
-					this.SendPropertyChanging();
-					this._ScheduledEndDate = value;
-					this.SendPropertyChanged("ScheduledEndDate");
-					this.OnScheduledEndDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualStartDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ActualStartDate
-		{
-			get
-			{
-				return this._ActualStartDate;
-			}
-			set
-			{
-				if ((this._ActualStartDate != value))
-				{
-					this.OnActualStartDateChanging(value);
-					this.SendPropertyChanging();
-					this._ActualStartDate = value;
-					this.SendPropertyChanged("ActualStartDate");
-					this.OnActualStartDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualEndDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ActualEndDate
-		{
-			get
-			{
-				return this._ActualEndDate;
-			}
-			set
-			{
-				if ((this._ActualEndDate != value))
-				{
-					this.OnActualEndDateChanging(value);
-					this.SendPropertyChanging();
-					this._ActualEndDate = value;
-					this.SendPropertyChanged("ActualEndDate");
-					this.OnActualEndDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualResourceHrs", DbType="Decimal(9,4)")]
-		public System.Nullable<decimal> ActualResourceHrs
-		{
-			get
-			{
-				return this._ActualResourceHrs;
-			}
-			set
-			{
-				if ((this._ActualResourceHrs != value))
-				{
-					this.OnActualResourceHrsChanging(value);
-					this.SendPropertyChanging();
-					this._ActualResourceHrs = value;
-					this.SendPropertyChanged("ActualResourceHrs");
-					this.OnActualResourceHrsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlannedCost", DbType="Money NOT NULL")]
-		public decimal PlannedCost
-		{
-			get
-			{
-				return this._PlannedCost;
-			}
-			set
-			{
-				if ((this._PlannedCost != value))
-				{
-					this.OnPlannedCostChanging(value);
-					this.SendPropertyChanging();
-					this._PlannedCost = value;
-					this.SendPropertyChanged("PlannedCost");
-					this.OnPlannedCostChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActualCost", DbType="Money")]
-		public System.Nullable<decimal> ActualCost
-		{
-			get
-			{
-				return this._ActualCost;
-			}
-			set
-			{
-				if ((this._ActualCost != value))
-				{
-					this.OnActualCostChanging(value);
-					this.SendPropertyChanging();
-					this._ActualCost = value;
-					this.SendPropertyChanged("ActualCost");
-					this.OnActualCostChanged();
+					this._ScrapReasonID = value;
+					this.SendPropertyChanged("ScrapReasonID");
+					this.OnScrapReasonIDChanged();
 				}
 			}
 		}
@@ -6474,70 +6449,83 @@ namespace Task3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Location_WorkOrderRouting", Storage="_Location", ThisKey="LocationID", OtherKey="LocationID", IsForeignKey=true)]
-		public Location Location
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WorkOrder_WorkOrderRouting", Storage="_WorkOrderRoutings", ThisKey="WorkOrderID", OtherKey="WorkOrderID")]
+		public EntitySet<WorkOrderRouting> WorkOrderRoutings
 		{
 			get
 			{
-				return this._Location.Entity;
+				return this._WorkOrderRoutings;
 			}
 			set
 			{
-				Location previousValue = this._Location.Entity;
+				this._WorkOrderRoutings.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_WorkOrder", Storage="_Product", ThisKey="ProductID", OtherKey="ProductID", IsForeignKey=true)]
+		public Product Product
+		{
+			get
+			{
+				return this._Product.Entity;
+			}
+			set
+			{
+				Product previousValue = this._Product.Entity;
 				if (((previousValue != value) 
-							|| (this._Location.HasLoadedOrAssignedValue == false)))
+							|| (this._Product.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Location.Entity = null;
-						previousValue.WorkOrderRoutings.Remove(this);
+						this._Product.Entity = null;
+						previousValue.WorkOrders.Remove(this);
 					}
-					this._Location.Entity = value;
+					this._Product.Entity = value;
 					if ((value != null))
 					{
-						value.WorkOrderRoutings.Add(this);
-						this._LocationID = value.LocationID;
+						value.WorkOrders.Add(this);
+						this._ProductID = value.ProductID;
 					}
 					else
 					{
-						this._LocationID = default(short);
+						this._ProductID = default(int);
 					}
-					this.SendPropertyChanged("Location");
+					this.SendPropertyChanged("Product");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="WorkOrder_WorkOrderRouting", Storage="_WorkOrder", ThisKey="WorkOrderID", OtherKey="WorkOrderID", IsForeignKey=true)]
-		public WorkOrder WorkOrder
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ScrapReason_WorkOrder", Storage="_ScrapReason", ThisKey="ScrapReasonID", OtherKey="ScrapReasonID", IsForeignKey=true)]
+		public ScrapReason ScrapReason
 		{
 			get
 			{
-				return this._WorkOrder.Entity;
+				return this._ScrapReason.Entity;
 			}
 			set
 			{
-				WorkOrder previousValue = this._WorkOrder.Entity;
+				ScrapReason previousValue = this._ScrapReason.Entity;
 				if (((previousValue != value) 
-							|| (this._WorkOrder.HasLoadedOrAssignedValue == false)))
+							|| (this._ScrapReason.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._WorkOrder.Entity = null;
-						previousValue.WorkOrderRoutings.Remove(this);
+						this._ScrapReason.Entity = null;
+						previousValue.WorkOrders.Remove(this);
 					}
-					this._WorkOrder.Entity = value;
+					this._ScrapReason.Entity = value;
 					if ((value != null))
 					{
-						value.WorkOrderRoutings.Add(this);
-						this._WorkOrderID = value.WorkOrderID;
+						value.WorkOrders.Add(this);
+						this._ScrapReasonID = value.ScrapReasonID;
 					}
 					else
 					{
-						this._WorkOrderID = default(int);
+						this._ScrapReasonID = default(Nullable<short>);
 					}
-					this.SendPropertyChanged("WorkOrder");
+					this.SendPropertyChanged("ScrapReason");
 				}
 			}
 		}
@@ -6560,6 +6548,18 @@ namespace Task3
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_WorkOrderRoutings(WorkOrderRouting entity)
+		{
+			this.SendPropertyChanging();
+			entity.WorkOrder = this;
+		}
+		
+		private void detach_WorkOrderRoutings(WorkOrderRouting entity)
+		{
+			this.SendPropertyChanging();
+			entity.WorkOrder = null;
 		}
 	}
 }

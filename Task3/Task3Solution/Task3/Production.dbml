@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AdventureWorks2016_Data" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\AdventureWorks2016_Data.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="Task3.Properties.Settings" SettingsPropertyName="AdventureWorks2016_DataConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AdventureWorks2016" Class="ProductionDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-GQLE6DB\TP_DB16;Initial Catalog=AdventureWorks2016;Integrated Security=True" SettingsObjectName="Task3.Properties.Settings" SettingsPropertyName="AdventureWorks2016ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="Production.BillOfMaterials" Member="BillOfMaterials">
     <Type Name="BillOfMaterial">
       <Column Name="BillOfMaterialsID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -16,21 +16,22 @@
       <Association Name="UnitMeasure_BillOfMaterial" Member="UnitMeasure" ThisKey="UnitMeasureCode" OtherKey="UnitMeasureCode" Type="UnitMeasure" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="Production.WorkOrder" Member="WorkOrders">
-    <Type Name="WorkOrder">
-      <Column Name="WorkOrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="OrderQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="StockedQty" Type="System.Int32" DbType="Int NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
-      <Column Name="ScrappedQty" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ScrapReasonID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+  <Table Name="Production.WorkOrderRouting" Member="WorkOrderRoutings">
+    <Type Name="WorkOrderRouting">
+      <Column Name="WorkOrderID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OperationSequence" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LocationID" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="ScheduledStartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ScheduledEndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ActualStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActualEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActualResourceHrs" Type="System.Decimal" DbType="Decimal(9,4)" CanBeNull="true" />
+      <Column Name="PlannedCost" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
+      <Column Name="ActualCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="WorkOrder_WorkOrderRouting" Member="WorkOrderRoutings" ThisKey="WorkOrderID" OtherKey="WorkOrderID" Type="WorkOrderRouting" />
-      <Association Name="Product_WorkOrder" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
-      <Association Name="ScrapReason_WorkOrder" Member="ScrapReason" ThisKey="ScrapReasonID" OtherKey="ScrapReasonID" Type="ScrapReason" IsForeignKey="true" />
+      <Association Name="Location_WorkOrderRouting" Member="Location" ThisKey="LocationID" OtherKey="LocationID" Type="Location" IsForeignKey="true" />
+      <Association Name="WorkOrder_WorkOrderRouting" Member="WorkOrder" ThisKey="WorkOrderID" OtherKey="WorkOrderID" Type="WorkOrder" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="Production.Culture" Member="Cultures">
@@ -56,8 +57,8 @@
       <Column Name="CostRate" Type="System.Decimal" DbType="SmallMoney NOT NULL" CanBeNull="false" />
       <Column Name="Availability" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Location_ProductInventory" Member="ProductInventories" ThisKey="LocationID" OtherKey="LocationID" Type="ProductInventory" />
       <Association Name="Location_WorkOrderRouting" Member="WorkOrderRoutings" ThisKey="LocationID" OtherKey="LocationID" Type="WorkOrderRouting" />
+      <Association Name="Location_ProductInventory" Member="ProductInventories" ThisKey="LocationID" OtherKey="LocationID" Type="ProductInventory" />
     </Type>
   </Table>
   <Table Name="Production.Product" Member="Products">
@@ -89,13 +90,13 @@
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="Product_BillOfMaterial" Member="BillOfMaterials" ThisKey="ProductID" OtherKey="ComponentID" Type="BillOfMaterial" />
       <Association Name="Product_BillOfMaterial1" Member="BillOfMaterials1" ThisKey="ProductID" OtherKey="ProductAssemblyID" Type="BillOfMaterial" />
-      <Association Name="Product_WorkOrder" Member="WorkOrders" ThisKey="ProductID" OtherKey="ProductID" Type="WorkOrder" />
       <Association Name="Product_ProductCostHistory" Member="ProductCostHistories" ThisKey="ProductID" OtherKey="ProductID" Type="ProductCostHistory" />
       <Association Name="Product_ProductInventory" Member="ProductInventories" ThisKey="ProductID" OtherKey="ProductID" Type="ProductInventory" />
       <Association Name="Product_ProductListPriceHistory" Member="ProductListPriceHistories" ThisKey="ProductID" OtherKey="ProductID" Type="ProductListPriceHistory" />
       <Association Name="Product_ProductProductPhoto" Member="ProductProductPhotos" ThisKey="ProductID" OtherKey="ProductID" Type="ProductProductPhoto" />
       <Association Name="Product_ProductReview" Member="ProductReviews" ThisKey="ProductID" OtherKey="ProductID" Type="ProductReview" />
       <Association Name="Product_TransactionHistory" Member="TransactionHistories" ThisKey="ProductID" OtherKey="ProductID" Type="TransactionHistory" />
+      <Association Name="Product_WorkOrder" Member="WorkOrders" ThisKey="ProductID" OtherKey="ProductID" Type="WorkOrder" />
       <Association Name="ProductModel_Product" Member="ProductModel" ThisKey="ProductModelID" OtherKey="ProductModelID" Type="ProductModel" IsForeignKey="true" />
       <Association Name="ProductSubcategory_Product" Member="ProductSubcategory" ThisKey="ProductSubcategoryID" OtherKey="ProductSubcategoryID" Type="ProductSubcategory" IsForeignKey="true" />
       <Association Name="UnitMeasure_Product" Member="UnitMeasure" ThisKey="SizeUnitMeasureCode" OtherKey="UnitMeasureCode" Type="UnitMeasure" IsForeignKey="true" />
@@ -276,22 +277,21 @@
       <Association Name="UnitMeasure_Product1" Member="Products1" ThisKey="UnitMeasureCode" OtherKey="WeightUnitMeasureCode" Type="Product" />
     </Type>
   </Table>
-  <Table Name="Production.WorkOrderRouting" Member="WorkOrderRoutings">
-    <Type Name="WorkOrderRouting">
-      <Column Name="WorkOrderID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="OperationSequence" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="LocationID" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="ScheduledStartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ScheduledEndDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ActualStartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActualEndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ActualResourceHrs" Type="System.Decimal" DbType="Decimal(9,4)" CanBeNull="true" />
-      <Column Name="PlannedCost" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
-      <Column Name="ActualCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+  <Table Name="Production.WorkOrder" Member="WorkOrders">
+    <Type Name="WorkOrder">
+      <Column Name="WorkOrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OrderQty" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StockedQty" Type="System.Int32" DbType="Int NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ScrappedQty" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DueDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ScrapReasonID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Location_WorkOrderRouting" Member="Location" ThisKey="LocationID" OtherKey="LocationID" Type="Location" IsForeignKey="true" />
-      <Association Name="WorkOrder_WorkOrderRouting" Member="WorkOrder" ThisKey="WorkOrderID" OtherKey="WorkOrderID" Type="WorkOrder" IsForeignKey="true" />
+      <Association Name="WorkOrder_WorkOrderRouting" Member="WorkOrderRoutings" ThisKey="WorkOrderID" OtherKey="WorkOrderID" Type="WorkOrderRouting" />
+      <Association Name="Product_WorkOrder" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+      <Association Name="ScrapReason_WorkOrder" Member="ScrapReason" ThisKey="ScrapReasonID" OtherKey="ScrapReasonID" Type="ScrapReason" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
