@@ -49,7 +49,7 @@ namespace Task3
 		{
 			var productWithVendor = products.Join(
                 context.ProductVendors,
-                product => product.ProductID,
+                product => product.ProductID, 
                 productVendor => productVendor.ProductID,
                 (product, productVendor) => new { ProductName = product.Name, VendorName = productVendor.Vendor.Name });
 
