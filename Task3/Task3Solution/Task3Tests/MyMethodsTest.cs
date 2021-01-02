@@ -14,13 +14,13 @@ namespace Task3Tests
         [TestMethod]
         public void GetProductsByNameTest()
         {
-            List<MyProduct> products = MyMethods.GetProductsByName("e");
-            Assert.AreEqual(4, products.Count);
+            List<MyProduct> products = MyMethods.GetProductsByName("");
+            Assert.AreEqual(5, products.Count);
             Assert.AreEqual("Hammer", products[0].Name);
-            //Assert.AreEqual("T-shirt", products[1].Name);
-            Assert.AreEqual("Screwdriver", products[1].Name);
-            Assert.AreEqual("Shoes", products[2].Name);
-            Assert.AreEqual("Trousers", products[3].Name);
+            Assert.AreEqual("T-shirt", products[1].Name);
+            Assert.AreEqual("Screwdriver", products[2].Name);
+            Assert.AreEqual("Shoes", products[3].Name);
+            Assert.AreEqual("Trousers", products[4].Name);
         }
     }
 }
