@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using Task3;
 
@@ -83,13 +82,13 @@ namespace Task3Tests
         {
             List<Product> products = Queries.GetNProductsFromCategory("Clothing", 7);
             Assert.AreEqual(7, products.Count);
-            Assert.AreEqual("Mountain Bike Socks, M", products[0].Name);
-            Assert.AreEqual("Mountain Bike Socks, L", products[1].Name);
-            Assert.AreEqual("AWC Logo Cap", products[2].Name);
-            Assert.AreEqual("Long-Sleeve Logo Jersey, S", products[3].Name);
-            Assert.AreEqual("Long-Sleeve Logo Jersey, M", products[4].Name);
-            Assert.AreEqual("Long-Sleeve Logo Jersey, L", products[5].Name);
-            Assert.AreEqual("Long-Sleeve Logo Jersey, XL", products[6].Name);
+            Assert.AreEqual("AWC Logo Cap", products[0].Name);
+            Assert.AreEqual("Classic Vest, L", products[1].Name);
+            Assert.AreEqual("Classic Vest, M", products[2].Name);
+            Assert.AreEqual("Classic Vest, S", products[3].Name);
+            Assert.AreEqual("Full-Finger Gloves, L", products[4].Name);
+            Assert.AreEqual("Full-Finger Gloves, M", products[5].Name);
+            Assert.AreEqual("Full-Finger Gloves, S", products[6].Name);
         }
 
         [TestMethod]

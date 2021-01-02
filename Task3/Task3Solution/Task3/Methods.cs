@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Task3
 {
-	public class Methods
+    public static class Methods
 	{
         private static ProductionDataContext context = new ProductionDataContext();
-
 
         public static List<Product> GetProductsByName(string namePart)
         {
@@ -76,10 +74,9 @@ namespace Task3
         {
             List<Product> products = context.Products
                 .Where(product => product.ProductSubcategory.ProductCategory.Name.Equals(categoryName))
+                .OrderBy(product => product.Name)
                 .Take(n)
                 .ToList();
-
-            File.WriteAllText("names", String.Join("\n", products.Select(p => p.Name).ToArray()));
 
             return products;
         }

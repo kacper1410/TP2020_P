@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Task3
 {
-	public class Queries
+    public static class Queries
     {
         private static ProductionDataContext context = new ProductionDataContext();
 
@@ -67,9 +67,10 @@ namespace Task3
         {
             IEnumerable<Product> products = from product in context.Products
                                             where product.ProductSubcategory.ProductCategory.Name.Equals(categoryName)
+                                            orderby product.Name
                                             select product;
 
-            return new List<Product>(products.ToArray().Take(n));
+            return products.Take(n).ToList();
         }
 
         public static int GetTotalStandardCostByCategory(ProductCategory category)
