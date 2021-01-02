@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
 
 namespace Task3
 {
-    public class Queries
+	public class Queries
     {
         private static ProductionDataContext context = new ProductionDataContext();
 

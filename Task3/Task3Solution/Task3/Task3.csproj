@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Methods.cs" />
     <Compile Include="Queries.cs" />
     <Compile Include="Production.designer.cs">
       <AutoGen>True</AutoGen>
