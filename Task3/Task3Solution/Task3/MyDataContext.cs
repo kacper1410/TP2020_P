@@ -36,24 +36,24 @@ namespace Task3
             product1.Vendor = vendor2;
 
             MyProduct product2 = new MyProduct();
-            product1.Name = "T-shirt";
-            product1.Category = category1;
-            product1.Vendor = vendor1;
+            product2.Name = "T-shirt";
+            product2.Category = category1;
+            product2.Vendor = vendor1;
 
             MyProduct product3 = new MyProduct();
-            product1.Name = "Screwdriver";
-            product1.Category = category2;
-            product1.Vendor = vendor2;
+            product3.Name = "Screwdriver";
+            product3.Category = category2;
+            product3.Vendor = vendor2;
 
             MyProduct product4 = new MyProduct();
-            product1.Name = "Shoes";
-            product1.Category = category1;
-            product1.Vendor = vendor3;
+            product4.Name = "Shoes";
+            product4.Category = category1;
+            product4.Vendor = vendor3;
 
             MyProduct product5 = new MyProduct();
-            product1.Name = "Trousers";
-            product1.Category = category1;
-            product1.Vendor = vendor2;
+            product5.Name = "Trousers";
+            product5.Category = category1;
+            product5.Vendor = vendor2;
 
             Categories.Add(category1);
             Categories.Add(category2);

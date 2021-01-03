@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Task3
+﻿namespace Task3
 {
-    public class MyProduct
+	public class MyProduct
     {
         public string Name { get; set; }
         public MyCategory Category { get; set; }

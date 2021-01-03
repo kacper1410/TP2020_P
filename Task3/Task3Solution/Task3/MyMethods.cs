@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Task3
 {
-    public static class MyMethods
+	public static class MyMethods
     {
         private static MyDataContext context = new MyDataContext();
 
         public static List<MyProduct> GetProductsByName(string namePart)
         {
+            Debug.Write(context.Products);
             List<MyProduct> products = context.Products
-                .Where(product => namePart.Contains(product.Name))
+                .Where(product => product.Name.Contains(namePart))
                 .ToList();
 
             return products;
