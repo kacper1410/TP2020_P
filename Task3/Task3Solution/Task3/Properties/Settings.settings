@@ -16,7 +16,7 @@
   &lt;ConnectionString&gt;Data Source=DESKTOP-GQLE6DB\TP_DB16;Initial Catalog=AdventureWorks2016;Integrated Security=True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=DESKTOP-GQLE6DB\TP_DB16;Initial Catalog=AdventureWorks2016;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=MARTIEGO;Initial Catalog=AdventureWorks2016;Integrated Security=True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

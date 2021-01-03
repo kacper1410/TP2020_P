@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task3
 {
@@ -13,7 +10,7 @@ namespace Task3
         public static List<MyProduct> GetProductsByName(string namePart)
         {
             List<MyProduct> products = context.Products
-                .Where(product => product.Name.Contains(namePart))
+                .Where(product => namePart.Contains(product.Name))
                 .ToList();
 
             return products;
