@@ -18,5 +18,24 @@ namespace Task3Tests
             Assert.AreEqual("Shoes", products[3].Name);
             Assert.AreEqual("Trousers", products[4].Name);
         }
+
+        [TestMethod]
+        public void GetProductsByVendorNameTest()
+        {
+            List<MyProduct> products = MyMethods.GetProductsByVendorName("Castorama");
+            Assert.AreEqual(3, products.Count);
+            Assert.AreEqual("Hammer", products[0].Name);
+            Assert.AreEqual("Screwdriver", products[1].Name);
+            Assert.AreEqual("Trousers", products[2].Name);
+        }
+
+        [TestMethod]
+        public void GetNProductsFromCategoryTest()
+        {
+            List<MyProduct> products = MyMethods.GetNProductsFromCategory("Clothing", 2);
+            Assert.AreEqual(2, products.Count);
+            Assert.AreEqual("Shoes", products[0].Name);
+            Assert.AreEqual("Trousers", products[1].Name);
+        }
     }
 }
