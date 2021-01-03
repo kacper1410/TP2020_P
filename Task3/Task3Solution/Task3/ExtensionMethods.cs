@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 
 namespace Task3
 {
-    public static class ExtensionMethods
+	public static class ExtensionMethods
     {
         private static ProductionDataContext context = new ProductionDataContext();
 
