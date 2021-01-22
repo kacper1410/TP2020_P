@@ -1,1 +1,11 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="AdventureWorks2016" Class="DepartmentsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-GQLE6DB\TP_DB16;Initial Catalog=AdventureWorks2016;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="AdventureWorks2016ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="HumanResources.Department" Member="Departments">
+    <Type Name="Department">
+      <Column Name="DepartmentID" Type="System.Int16" DbType="SmallInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GroupName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ModifiedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
