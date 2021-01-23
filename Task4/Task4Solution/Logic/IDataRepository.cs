@@ -5,7 +5,7 @@ namespace Logic
 {
 	interface IDataRepository
 	{
-		IEnumerable<Department> GetDepartments();
+		IEnumerable<DepartmentWrapper> GetDepartments();
 		void RemoveDepartment(int id);
 		void AddDepartment(string name, string groupName);
 		void UpdateDepartment(int id, string name, string groupName);

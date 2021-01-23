@@ -29,13 +29,14 @@ namespace Logic
 			}
 		}
 
-		public IEnumerable<Department> GetDepartments()
+		public IEnumerable<DepartmentWrapper> GetDepartments()
 		{
-			List<Department> departments;
+			List<DepartmentWrapper> departments = new List<DepartmentWrapper>();
 			using (Context)
 			{
-				departments = Context.Departments.ToList();
+				Context.Departments.ToList().ForEach(d => departments.Add(new DepartmentWrapper(d)));
 			}
+
 			return departments;
 		}
 
@@ -61,6 +62,7 @@ namespace Logic
 
 				department.Name = name;
 				department.GroupName = groupName;
+				department.ModifiedDate = DateTime.Now;
 
 				Context.SubmitChanges();
 			}
