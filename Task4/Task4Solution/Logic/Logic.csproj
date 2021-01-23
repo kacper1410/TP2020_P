@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Azure.Common.NetFramework">
+      <HintPath>S:\Programs\VisualStudio\Common7\IDE\Extensions\Microsoft\SqlDb\Microsoft.Azure.Common.NetFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />

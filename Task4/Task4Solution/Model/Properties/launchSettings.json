@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Model": {
+      "commandName": "Project"
+    },
+    "newProfile1": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\RepositoryDotNet\\TP2020_P\\TP2020_P\\TP2020_P\\Task4\\Task4Solution\\View"
+    }
+  }
+}
