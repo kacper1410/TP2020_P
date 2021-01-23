@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Model
+﻿namespace Model
 {
-    public class Model
+	public class Model
     {
         // Część warstwy prezentacji, komunikuje się z warstwą logiki
     }
