@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ViewModel
+﻿namespace ViewModel
 {
-    public interface IWindow
+	public interface IWindow
     {
         void Show();
     }

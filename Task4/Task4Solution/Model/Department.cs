@@ -70,5 +70,9 @@ namespace Model
 			GroupName = department.GroupName;
 			ModifiedDate = department.ModifiedDate;
 		}
+
+		public Department()
+		{
+		}
 	}
 }

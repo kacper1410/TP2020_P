@@ -26,7 +26,7 @@ namespace Data.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-GQLE6DB\\TP_DB16;Initial Catalog=AdventureWorks2016;Integrated" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MARTIEGO;Initial Catalog=AdventureWorks2016;Integrated" +
             " Security=True")]
         public string AdventureWorks2016ConnectionString {
             get {

@@ -12,6 +12,7 @@ namespace ViewModel
         private Model.Model Model;
         public IEnumerable<Department> Departments { get; set; }
         private DepartmentList DepartmentList = new DepartmentList();
+
         public Command ShowAddWindowProperty { get; private set; }
 
         public Command ShowDetailsWindowProperty { get; set; }
