@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View.IWindow;
 
 namespace View
 {
@@ -23,6 +24,14 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        protected override void OnInitialized(EventArgs e)
+        {
+            base.OnInitialized(e);
+            ViewModel.ViewModel vm = (ViewModel.ViewModel)DataContext;
+            vm.AddWindow = new Lazy<ViewModel.IWindow>(() => new Add());
+            vm.DetailsWindow = new Lazy<ViewModel.IWindow>(() => new Details());
         }
     }
 }

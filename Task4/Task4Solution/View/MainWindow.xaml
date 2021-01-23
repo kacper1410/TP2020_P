@@ -6,38 +6,38 @@
         xmlns:local="clr-namespace:View"
         xmlns:vm="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="520" Width="300">
+        Title="MainWindow" Height="520" Width="450">
 
     <Window.DataContext>
-      <vm:MainWindowActions/>
+      <vm:ViewModel/>
     </Window.DataContext>
   
     <Grid>
-      <ListView Name="DepartmentsList"  ItemsSource="{Binding Departments}" Height="400" VerticalAlignment="Top">
+      <ListView Name="DepartmentsList"  ItemsSource="{Binding Departments}" SelectedItem="{Binding CurrentDepartment}" Height="400" VerticalAlignment="Top">
         <ListView.View>
           <GridView>
             <GridView.Columns>
-              <GridViewColumn DisplayMemberBinding="{Binding GroupName}" Header="GroupName" Width="145"/>
-              <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="145" />
+              <GridViewColumn DisplayMemberBinding="{Binding GroupName}" Header="GroupName" Width="250"/>
+              <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" Width="174" />
             </GridView.Columns>
           </GridView>
         </ListView.View>
       </ListView>
       
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="15, 380,0,0">
-            <Button Command="{Biding ShowAddWindow}" Content="Add Department" Height="20" Width="120"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="60, 370,0,0">
+            <Button Command="{Binding ShowAddWindowProperty}" Content="Add Department" Height="20" Width="120"/>
         </StackPanel>
       
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="150, 380,0,0">
-            <Button Content="Remove Department" Height="20" Width="120"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="250, 370,0,0">
+            <Button Command="{Binding DeleteDepartmentProperty}" Content="Delete Department" Height="20" Width="120"/>
         </StackPanel>
-      
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="15, 435,0,0">
-            <Button Content="Show details" Height="20" Width="120"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="60, 435,0,0">
+            <Button Command="{Binding ShowDetailsWindowProperty}" Content="Show details" Height="20" Width="120"/>
         </StackPanel>
-      
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="150, 435, 0, 0">
-            <Button Content="Refresh" Height="20" Width="120"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="250, 435, 0, 0">
+            <Button Command="{Binding RefreshProperty}" Content="Refresh" Height="20" Width="120"/>
         </StackPanel>
       
     </Grid>

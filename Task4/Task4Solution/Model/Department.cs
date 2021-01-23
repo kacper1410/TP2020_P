@@ -1,57 +1,65 @@
 ﻿using Logic;
+using System;
 
 namespace Model
 {
 	public class Department
 	{
+		private short _departmentID;
+		private string _name;
+		private string _groupName;
+		private DateTime _modifiedDate;
 		public short DepartmentID 
 		{
 			get
 			{
-				return DepartmentID;
+				return _departmentID;
 			}
 
-			set
-			{
-				DepartmentID = value;
+            set
+            {
+				_departmentID = value;
 			}
+
 		}
-		private string Name
+
+
+		public string Name
 		{
 			get
 			{
-				return Name;
+				return _name;
 			}
 
 			set
 			{
-				Name = value;
+				_name = value;
 			}
 		}
 
-		private string GroupName
+		public string GroupName
 		{
 			get
 			{
-				return GroupName;
+				return _groupName;
 			}
 
 			set
 			{
-				GroupName = value;
+				_groupName = value;
 			}
 		}
 
-		private System.DateTime ModifiedDate
+		public DateTime ModifiedDate
 		{
 			get
 			{
-				return ModifiedDate;
+				return _modifiedDate;
 			}
 
 			set
 			{
-				ModifiedDate = value;
+				_modifiedDate = value;
 			}
 		}
 
