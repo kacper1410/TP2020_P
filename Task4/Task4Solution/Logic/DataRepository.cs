@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Logic
 {
-	public class DataRepository
+	public class DataRepository: IDataRepository
 	{
 		private DepartmentsDataContext Context;
 
