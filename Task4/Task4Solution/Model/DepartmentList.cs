@@ -1,25 +1,20 @@
 ﻿using Logic;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 
 namespace Model
 {
-	public class DepartmentList : INotifyCollectionChanged
+	public class DepartmentList : ObservableCollection<Department>
 	{
-		private List<DepartmentWrapper> Departments;
 		private Model Model;
-		public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-		public DepartmentList()
+		public DepartmentList() : base()
 		{
 			Model = new Model();
-			Departments = (List<DepartmentWrapper>)Model.GetDepartments();
-		}
 
-		public void AddDepartment(string name, string groupName)
-		{
-			Model.AddDepartment(name, groupName);
-			Departments = (List<DepartmentWrapper>)Model.GetDepartments();
+			foreach (DepartmentWrapper department in Model.GetDepartments())
+			{
+				Add(new Department(department));
+			}
 		}
 	}
 }

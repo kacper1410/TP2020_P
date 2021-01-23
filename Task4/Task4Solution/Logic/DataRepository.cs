@@ -11,18 +11,17 @@ namespace Logic
 
 		public DataRepository()
 		{
-			Context = new DepartmentsDataContext();
 		}
 
 		public void AddDepartment(string name, string groupName)
-	{
+		{
 			Department department = new Department();
 
 			department.Name = name;
 			department.GroupName = groupName;
 			department.ModifiedDate = DateTime.Now;
 
-			using (Context)
+			using (Context = new DepartmentsDataContext())
 			{
 				Context.Departments.InsertOnSubmit(department);
 				Context.SubmitChanges();
@@ -32,7 +31,8 @@ namespace Logic
 		public IEnumerable<DepartmentWrapper> GetDepartments()
 		{
 			List<DepartmentWrapper> departments = new List<DepartmentWrapper>();
-			using (Context)
+
+			using (Context = new DepartmentsDataContext())
 			{
 				Context.Departments.ToList().ForEach(d => departments.Add(new DepartmentWrapper(d)));
 			}
@@ -42,7 +42,7 @@ namespace Logic
 
 		public void RemoveDepartment(int id)
 		{
-			using (Context)
+			using (Context = new DepartmentsDataContext())
 			{
 				Department department = Context.Departments
 									.Where(d => d.DepartmentID == id)
@@ -56,7 +56,7 @@ namespace Logic
 
 		public void UpdateDepartment(int id, string name, string groupName)
 		{
-			using (Context)
+			using (Context = new DepartmentsDataContext())
 			{
 				Department department = Context.Departments.Single(x => x.DepartmentID == id);
 

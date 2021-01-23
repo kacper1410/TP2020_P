@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
-using System;
+using System.Diagnostics;
 
 namespace ModelTest
 {
@@ -12,7 +12,10 @@ namespace ModelTest
 		[TestMethod]
 		public void TestMethod1()
 		{
-			DepartmentList.AddDepartment("test", "test_group");
+			foreach (Department d in DepartmentList)
+			{
+				Debug.Write(d);
+			}
 		}
 	}
 }

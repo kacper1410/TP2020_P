@@ -1,8 +1,36 @@
-﻿namespace ViewModel
+﻿using Model;
+using System.Collections.Generic;
+
+namespace ViewModel
 {
 	public class ViewModel
     {
-        // Część warstwy prezentacji, zawiera instrukcje jak mają zachowywać się elementy gui
+        public IEnumerable<Department> Departments;
+        public DepartmentList DepartmentList = new DepartmentList();
+        
+        public ViewModel()
+        {
+            Departments = new DepartmentList();
+        }
 
+        public void ShowAddWindow()
+        {
+
+        } 
+
+        public void DeleteDepartment()
+        {
+
+        }
+
+        public void Refresh()
+        {
+
+        }
+
+        public void ShowDetailsWindow()
+        {
+
+        }
     }
 }

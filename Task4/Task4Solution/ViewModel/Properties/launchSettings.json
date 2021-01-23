@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ViewModel": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Patryk\\Desktop\\TP2020_P\\Task4\\Task4Solution\\View\\bin"
+    },
+    "Veiwwaqedq": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Patryk\\Desktop\\TP2020_P\\Task4\\Task4Solution\\View"
+    }
+  }
+}
