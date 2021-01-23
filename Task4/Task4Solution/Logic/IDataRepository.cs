@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Logic
 {
-	interface IDataRepository
+	public interface IDataRepository
 	{
 		IEnumerable<DepartmentWrapper> GetDepartments();
 		void RemoveDepartment(int id);
