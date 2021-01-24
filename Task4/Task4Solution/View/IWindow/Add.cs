@@ -3,9 +3,18 @@
 	public class Add : ViewModel.IWindow
     {
         private AddWindow AddWindow;
+        private static bool _open;
         public Add()
         {
             AddWindow = new AddWindow();
+            _open = false;
+        }
+
+        public void Close()
+        {
+            AddWindow.Close();
+            AddWindow = new AddWindow();
+            _open = false;
         }
 
         public void SetViewModel(ViewModel.ViewModel viewModel)
@@ -15,8 +24,11 @@
 
         public void Show()
         {
-            AddWindow.Show();
-            AddWindow = new AddWindow();
+            if (!_open)
+            {
+                AddWindow.Show();
+                _open = true;
+            }
         }
     }
 }

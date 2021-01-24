@@ -9,18 +9,32 @@ namespace View.IWindow
     public class Details : ViewModel.IWindow
     {
         private DetailsWindow DetailsWindow;
+        private static bool _open;
         public Details()
         {
             DetailsWindow = new DetailsWindow();
+            _open = false;
         }
+
+        public void Close()
+        {
+            DetailsWindow.Close();
+            DetailsWindow = new DetailsWindow();
+            _open = false;
+        }
+
         public void SetViewModel(ViewModel.ViewModel viewModel)
         {
             DetailsWindow.DataContext = viewModel;
         }
+
         public void Show()
         {
-            DetailsWindow.Show();
-            DetailsWindow = new DetailsWindow();
+            if (!_open)
+            {
+                DetailsWindow.Show();
+                _open = true;
+            }
         }
     }
 }

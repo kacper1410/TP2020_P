@@ -19,7 +19,7 @@ namespace ViewModel
             }
             set
             {
-                _departments = value
+                _departments = value;
             }
         }
 
@@ -69,20 +69,16 @@ namespace ViewModel
         public void DeleteDepartment()
         {
             Model.DeleteDepartment(CurrentDepartment.DepartmentID);
+            Refresh();
         }
 
         public void Refresh()
         {
-            Console.WriteLine("Przed");
-            foreach(Department d in Departments)
+            Departments.Clear();
+            IEnumerable<Department> departments = new DepartmentList();
+            foreach(Department d in departments)
             {
-                Console.WriteLine(d.Name);
-            }
-            Departments = new DepartmentList();
-            Console.WriteLine("Po");
-            foreach (Department d in Departments)
-            {
-                Console.WriteLine(d.Name);
+                Departments.Add(d);
             }
         }
 
@@ -106,12 +102,21 @@ namespace ViewModel
         {
             Console.WriteLine(CurrentName + " " + CurrentGroupName);
             Model.AddDepartment(CurrentName, CurrentGroupName);
+            Refresh();
+
+            AddWindow.Value.Close();
         }
 
         public void ConfirmEdit()
         {
             Console.WriteLine(CurrentName + " " + CurrentGroupName);
             Model.UpdateDepartment(CurrentID, CurrentName, CurrentGroupName);
+            Refresh();
+
+            CurrentName = "";
+            CurrentGroupName = "";
+
+            DetailsWindow.Value.Close();
         }
         #endregion
     }

@@ -4,5 +4,7 @@
     {
         void SetViewModel(ViewModel viewModel);
         void Show();
+
+        void Close();
     }
 }
