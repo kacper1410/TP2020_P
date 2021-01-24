@@ -7,6 +7,12 @@
         {
             AddWindow = new AddWindow();
         }
+
+        public void SetViewModel(ViewModel.ViewModel viewModel)
+        {
+            AddWindow.DataContext = viewModel;
+        }
+
         public void Show()
         {
             AddWindow.Show();

@@ -13,6 +13,10 @@ namespace View.IWindow
         {
             DetailsWindow = new DetailsWindow();
         }
+        public void SetViewModel(ViewModel.ViewModel viewModel)
+        {
+            DetailsWindow.DataContext = viewModel;
+        }
         public void Show()
         {
             DetailsWindow.Show();
