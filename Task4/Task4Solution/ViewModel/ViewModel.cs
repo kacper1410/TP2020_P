@@ -1,13 +1,10 @@
 ﻿
 using Model;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace ViewModel
 {
-	public class ViewModel
+    public class ViewModel
     {
         public DepartmentList DepartmentList { get; private set; }
 
