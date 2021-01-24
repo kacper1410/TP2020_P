@@ -2,6 +2,7 @@
 {
 	public interface IWindow
     {
+        void SetViewModel(ViewModel viewModel);
         void Show();
     }
 }
