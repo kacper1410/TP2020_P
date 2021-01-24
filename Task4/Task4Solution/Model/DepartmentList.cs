@@ -10,34 +10,34 @@ namespace Model
 		public DepartmentList() : base()
 		{
 			Model = new Model();
-			FillList();
+			RefreshList();
 		}
 
 		public DepartmentList(Model model) : base()
 		{
 			Model = model;
-			FillList();
+			RefreshList();
 		}
 
 		public void AddDepartment(string name, string groupName)
 		{
 			Model.AddDepartment(name, groupName);
-			FillList();
+			RefreshList();
 		}
 
 		public void DeleteDepartment(int id)
 		{
 			Model.DeleteDepartment(id);
-			FillList();
+			RefreshList();
 		}
 
 		public void UpdateDepartment(int id, string name, string groupName)
 		{
 			Model.UpdateDepartment(id, name, groupName);
-			FillList();
+			RefreshList();
 		}
 
-		private void FillList()
+		public void RefreshList()
 		{
 			Clear();
 			foreach (DepartmentWrapper department in Model.GetDepartments())

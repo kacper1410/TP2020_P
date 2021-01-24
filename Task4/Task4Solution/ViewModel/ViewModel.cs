@@ -9,21 +9,7 @@ namespace ViewModel
 {
 	public class ViewModel
     {
-        private Model.Model Model;
-        private ObservableCollection<Department> _departments;
-        public ObservableCollection<Department> Departments
-        {
-            get
-            {
-                return _departments;
-            }
-            set
-            {
-                _departments = value;
-            }
-        }
-
-        private DepartmentList DepartmentList = new DepartmentList();
+        public DepartmentList DepartmentList { get; private set; }
 
         #region Commands
         public Command ShowAddWindowProperty { get; private set; }
@@ -48,8 +34,7 @@ namespace ViewModel
 
         public ViewModel()
         {
-            Model = new Model.Model();
-            Departments = new DepartmentList();
+            DepartmentList = new DepartmentList();
             ShowAddWindowProperty = new Command(ShowAddWindow);
             ShowDetailsWindowProperty = new Command(ShowDetailsWindow);
             DeleteDepartmentProperty = new Command(DeleteDepartment);
@@ -68,18 +53,12 @@ namespace ViewModel
 
         public void DeleteDepartment()
         {
-            Model.DeleteDepartment(CurrentDepartment.DepartmentID);
-            Refresh();
+            DepartmentList.DeleteDepartment(CurrentDepartment.DepartmentID);
         }
 
         public void Refresh()
         {
-            Departments.Clear();
-            IEnumerable<Department> departments = new DepartmentList();
-            foreach(Department d in departments)
-            {
-                Departments.Add(d);
-            }
+            DepartmentList.RefreshList();
         }
 
         public void ShowDetailsWindow()
@@ -100,18 +79,14 @@ namespace ViewModel
 
         public void ConfirmAdd()
         {
-            Console.WriteLine(CurrentName + " " + CurrentGroupName);
-            Model.AddDepartment(CurrentName, CurrentGroupName);
-            Refresh();
+            DepartmentList.AddDepartment(CurrentName, CurrentGroupName);
 
             AddWindow.Value.Close();
         }
 
         public void ConfirmEdit()
         {
-            Console.WriteLine(CurrentName + " " + CurrentGroupName);
-            Model.UpdateDepartment(CurrentID, CurrentName, CurrentGroupName);
-            Refresh();
+            DepartmentList.UpdateDepartment(CurrentID, CurrentName, CurrentGroupName);
 
             CurrentName = "";
             CurrentGroupName = "";
