@@ -1,26 +1,41 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Model;
-using System.Linq;
 
 namespace ModelTest
 {
 	[TestClass]
 	public class DepartmentListTest
 	{
-		private DepartmentList DepartmentList = new DepartmentList();
-		private Model.Model Model = new Model.Model();
+		private DepartmentList DepartmentList;
+
+		public DepartmentListTest()
+		{
+			Model.Model Model = new Model.Model(new DataRepository());
+			DepartmentList = new DepartmentList(Model);
+		}
 
 		[TestMethod]
-		public void TestMethod1()
+		public void AddDepartmentTest()
 		{
-			DepartmentList departments = new DepartmentList();
+			Assert.AreEqual(5, DepartmentList.Count);
+			DepartmentList.AddDepartment("22263334447", "Grupa321");
+			Assert.AreEqual(6, DepartmentList.Count);
+		}
 
-			Assert.AreEqual(22, departments.Count);
-			departments.AddDepartment("22263334447", "Grupa321");
-			Assert.AreEqual(23, departments.Count);
-			Department department = departments.Where(d => d.Name.Equals("22263334447")).FirstOrDefault();
-			departments.DeleteDepartment(department.DepartmentID);
-			Assert.AreEqual(22, departments.Count);
+		[TestMethod]
+		public void DeleteDepartmentTest()
+		{
+			Assert.AreEqual(5, DepartmentList.Count);
+			DepartmentList.DeleteDepartment(5);
+			Assert.AreEqual(4, DepartmentList.Count);
+		}
+
+		[TestMethod]
+		public void UpdateDepartmentTest()
+		{
+			DepartmentList.UpdateDepartment(5, "NewName", "NewGroup");
+			Assert.AreEqual("NewName", DepartmentList[4].Name);
+			Assert.AreEqual("NewGroup", DepartmentList[4].GroupName);
 		}
 	}
 }

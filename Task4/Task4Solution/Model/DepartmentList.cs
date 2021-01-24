@@ -13,6 +13,12 @@ namespace Model
 			FillList();
 		}
 
+		public DepartmentList(Model model) : base()
+		{
+			Model = model;
+			FillList();
+		}
+
 		public void AddDepartment(string name, string groupName)
 		{
 			Model.AddDepartment(name, groupName);

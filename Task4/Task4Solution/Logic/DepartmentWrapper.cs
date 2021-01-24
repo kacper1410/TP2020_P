@@ -12,6 +12,16 @@ namespace Logic
 			Department = department;
 		}
 
+		public DepartmentWrapper(short departmentID, string name, string groupName, DateTime modifiedTime)
+		{
+			Department department = new Department();
+			department.DepartmentID = departmentID;
+			department.Name = name;
+			department.GroupName = groupName;
+			department.ModifiedDate = modifiedTime;
+			Department = department;
+		}
+
 		public short DepartmentID
 		{
 			get
@@ -52,6 +62,11 @@ namespace Logic
             {
 				return Department.ModifiedDate;
             }
+
+			set
+			{
+				Department.ModifiedDate = value;
+			}
         }
 	}
 }
