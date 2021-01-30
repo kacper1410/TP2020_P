@@ -1,12 +1,16 @@
 ﻿
 using Model;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ViewModel
 {
-    public class ViewModel
+	public class ViewModel : ViewModelListener
     {
-        public DepartmentList DepartmentList { get; private set; }
+        public List<Department> Departments { get; private set; }
+
+        private Model.Model Model;
 
         #region Commands
         public Command ShowAddWindowProperty { get; private set; }
@@ -31,7 +35,8 @@ namespace ViewModel
 
         public ViewModel()
         {
-            DepartmentList = new DepartmentList();
+            Departments = new List<Department>();
+            Model = new Model.Model();
             ShowAddWindowProperty = new Command(ShowAddWindow);
             ShowDetailsWindowProperty = new Command(ShowDetailsWindow);
             DeleteDepartmentProperty = new Command(DeleteDepartment);
@@ -50,12 +55,18 @@ namespace ViewModel
 
         public void DeleteDepartment()
         {
-            DepartmentList.DeleteDepartment(CurrentDepartment.DepartmentID);
+            Task.Run(() =>
+            {
+                Model.DeleteDepartment(CurrentDepartment.DepartmentID);
+                Refresh();
+            });
+            
         }
 
         public void Refresh()
         {
-            DepartmentList.RefreshList();
+            Departments = Model.GetDepartments();
+            OnPropertyChanged("Departments");
         }
 
         public void ShowDetailsWindow()
@@ -68,7 +79,7 @@ namespace ViewModel
             CurrentName = CurrentDepartment.Name;
             CurrentGroupName = CurrentDepartment.GroupName;
             CurrentModifiedDate = CurrentDepartment.ModifiedDate;
-
+            
             IWindow window = DetailsWindow.Value;
             window.SetViewModel(this);
             window.Show();
@@ -76,15 +87,23 @@ namespace ViewModel
 
         public void ConfirmAdd()
         {
-            DepartmentList.AddDepartment(CurrentName, CurrentGroupName);
-
+            Task.Run(() =>
+            {
+                Model.AddDepartment(CurrentName, CurrentGroupName);
+                Refresh();
+            });
+            
             AddWindow.Value.Close();
         }
 
         public void ConfirmEdit()
         {
-            DepartmentList.UpdateDepartment(CurrentID, CurrentName, CurrentGroupName);
-
+            Task.Run(() =>
+            {
+                Model.UpdateDepartment(CurrentID, CurrentName, CurrentGroupName);
+                Refresh();
+            });
+            
             CurrentName = "";
             CurrentGroupName = "";
 
