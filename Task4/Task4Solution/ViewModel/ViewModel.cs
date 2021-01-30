@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace ViewModel
 {
-	public class ViewModel : ViewModelListener
+    public class ViewModel : ViewModelListener
     {
-        public List<Department> Departments { get; private set; }
+
+        private List<Department> _departments;
+        private Department _currentDepartment;
+        private short _currentID;
+        private string _currentName;
+        private string _currentGroupName;
+        private DateTime _currentModifiedDate;
 
         private Model.Model Model;
 
@@ -24,19 +30,95 @@ namespace ViewModel
         public Command ConfirmEditProperty { get; set; }
         #endregion
 
+        #region Windows
         public Lazy<IWindow> AddWindow { get; set; }
         public Lazy<IWindow> DetailsWindow { get; set; }
+        #endregion
 
-        public Department CurrentDepartment { get; set; }
-        public short CurrentID { get; private set; }
-        public string CurrentName { get; set; }
-        public string CurrentGroupName { get; set; }
-        public DateTime CurrentModifiedDate{ get; private set; }
+        #region CurrentProperties
+        public List<Department> Departments
+        {
+            get
+            {
+                return _departments;
+            }
+            private set
+            {
+                _departments = value;
+                OnPropertyChanged("Departments");
+            }
+        }
+
+        public Department CurrentDepartment
+        {
+            get
+            {
+                return _currentDepartment;
+            }
+            set
+            {
+                _currentDepartment = value;
+                OnPropertyChanged("CurrentDepartment");
+            }
+        }
+
+        public short CurrentID
+        {
+            get
+            {
+                return _currentID;
+            }
+            private set
+            {
+                _currentID = value;
+                OnPropertyChanged("CurrentID");
+            }
+        }
+
+        public string CurrentName
+        {
+            get
+            {
+                return _currentName;
+            }
+            set
+            {
+                _currentName = value;
+                OnPropertyChanged("CurrentName");
+            }
+        }
+
+        public string CurrentGroupName
+        {
+            get
+            {
+                return _currentGroupName;
+            }
+            set
+            {
+                _currentGroupName = value;
+                OnPropertyChanged("CurrentGroupName");
+            }
+        }
+
+        public DateTime CurrentModifiedDate
+        {
+            get
+            {
+                return _currentModifiedDate;
+            }
+            private set
+            {
+                _currentModifiedDate = value;
+                OnPropertyChanged("CurrentModifiedDate");
+            }
+        }
+        #endregion
 
         public ViewModel()
         {
-            Departments = new List<Department>();
             Model = new Model.Model();
+            Departments = Model.GetDepartments();
             ShowAddWindowProperty = new Command(ShowAddWindow);
             ShowDetailsWindowProperty = new Command(ShowDetailsWindow);
             DeleteDepartmentProperty = new Command(DeleteDepartment);
@@ -51,7 +133,7 @@ namespace ViewModel
             IWindow window = AddWindow.Value;
             window.SetViewModel(this);
             window.Show();
-        } 
+        }
 
         public void DeleteDepartment()
         {
@@ -60,13 +142,12 @@ namespace ViewModel
                 Model.DeleteDepartment(CurrentDepartment.DepartmentID);
                 Refresh();
             });
-            
+
         }
 
         public void Refresh()
         {
             Departments = Model.GetDepartments();
-            OnPropertyChanged("Departments");
         }
 
         public void ShowDetailsWindow()
@@ -79,7 +160,7 @@ namespace ViewModel
             CurrentName = CurrentDepartment.Name;
             CurrentGroupName = CurrentDepartment.GroupName;
             CurrentModifiedDate = CurrentDepartment.ModifiedDate;
-            
+
             IWindow window = DetailsWindow.Value;
             window.SetViewModel(this);
             window.Show();
@@ -92,7 +173,7 @@ namespace ViewModel
                 Model.AddDepartment(CurrentName, CurrentGroupName);
                 Refresh();
             });
-            
+
             AddWindow.Value.Close();
         }
 
@@ -101,11 +182,11 @@ namespace ViewModel
             Task.Run(() =>
             {
                 Model.UpdateDepartment(CurrentID, CurrentName, CurrentGroupName);
+                CurrentName = "";
+                CurrentGroupName = "";
                 Refresh();
             });
-            
-            CurrentName = "";
-            CurrentGroupName = "";
+
 
             DetailsWindow.Value.Close();
         }

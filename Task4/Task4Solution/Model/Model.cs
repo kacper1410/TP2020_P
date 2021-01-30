@@ -22,7 +22,7 @@ namespace Model
 			DataRepository.AddDepartment(name, groupName);
 		}
 
-		public IEnumerable<Department> GetDepartments()
+		public List<Department> GetDepartments()
 		{
 			List<Department> departments = new List<Department>();
 			foreach (DepartmentWrapper departmentWrapper in DataRepository.GetDepartments())

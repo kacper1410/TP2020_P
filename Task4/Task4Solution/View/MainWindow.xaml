@@ -13,7 +13,7 @@
     </Window.DataContext>
   
     <Grid>
-        <ListView Name="DepartmentsList"  ItemsSource="{Binding DepartmentList}" SelectedItem="{Binding CurrentDepartment}" Height="400" VerticalAlignment="Top">
+        <ListView Name="DepartmentsList"  ItemsSource="{Binding Departments}" SelectedItem="{Binding CurrentDepartment}" Height="400" VerticalAlignment="Top">
         <ListView.View>
           <GridView>
             <GridView.Columns>
