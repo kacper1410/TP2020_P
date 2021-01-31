@@ -16,7 +16,7 @@ namespace ViewModel
         private string _currentGroupName;
         private DateTime _currentModifiedDate;
 
-        private Model.Model Model;
+        private Model.IModel Model;
 
         #region Commands
         public Command ShowAddWindowProperty { get; private set; }
@@ -115,9 +115,20 @@ namespace ViewModel
         }
         #endregion
 
+        #region Contructors
         public ViewModel()
         {
             Model = new Model.Model();
+            init();
+        }
+
+        public ViewModel(IModel model)
+        {
+            Model = model;
+            init();
+        }
+        private void init()
+        {
             Departments = Model.GetDepartments();
             ShowAddWindowProperty = new Command(ShowAddWindow);
             ShowDetailsWindowProperty = new Command(ShowDetailsWindow);
@@ -126,6 +137,7 @@ namespace ViewModel
             ConfirmAddProperty = new Command(ConfirmAdd);
             ConfirmEditProperty = new Command(ConfirmEdit);
         }
+        #endregion
 
         #region Button actions
         public void ShowAddWindow()

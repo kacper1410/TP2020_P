@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Model
 {
-	public class Model
+	public class Model : IModel
 	{
 		private IDataRepository DataRepository;
 

@@ -23,7 +23,7 @@ namespace ModelTest
 		}
 
 		[TestMethod]
-		public void GetDepartments()
+		public void GetDepartmentsTest()
 		{
 			Assert.AreEqual(5, Model.GetDepartments().ToList().Count);
 		}
